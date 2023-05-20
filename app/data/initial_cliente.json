@@ -1,0 +1,93 @@
+[
+    {
+        "nome": "João Grilo",
+        "email": "joao_do_grilao@yahoo.com",
+        "telefone": "(63) 3135-7981", 
+        "tipo": "Pessoa",
+        "etapa": 4,
+        "data": "2022-03-27",
+        "expectativa": "2022-03-27"
+    },
+    {
+        "nome": "Chicó",
+        "email": "franciso_poucas_bolas@gmail.com",
+        "telefone": "(82) 2717-8038", 
+        "tipo": "Pessoa",
+        "etapa": 2,
+        "data": "2022-04-04",
+        "expectativa": "2022-04-04"
+  
+    },
+    {
+        "nome": "Severino de Aracaju",
+        "email": "dislike_gaitas@gmail.com",
+        "telefone": "(37) 2348-3367", 
+        "tipo": "Pessoa",
+        "etapa": 1,
+        "data": "2022-04-06",
+        "expectativa": "2022-04-06"
+    },
+    {
+        "nome": "Dorinha",
+        "email": "amante_dos_animais@hotmail.com",
+        "telefone": "(91) 3371-9085", 
+        "tipo": "Pessoa",
+        "etapa": 2,
+        "data": "2022-04-09",
+        "expectativa": "2022-04-09"
+    },
+    {
+        "nome": "Eurico Padeiro",
+        "email": "cornoTambemAma@outlook.com",
+        "telefone": "(91) 3371-9085", 
+        "tipo": "Empresa",
+        "etapa": 1,
+        "data": "2022-04-12",
+        "expectativa": "2022-04-12"
+    },
+    {
+        "nome": "Rosinha",
+        "email": "coadjuvante@outlook.com",
+        "telefone": "(85) 3348-5881", 
+        "tipo": "Pessoa",
+        "etapa": 2,
+        "data": "2022-04-13",
+        "expectativa": "2022-04-13"
+    },
+    {
+        "nome": "Bispo",
+        "email": "capitalismo_consciente@salvacao.com",
+        "telefone": "(85) 3348-5881", 
+        "tipo": "Empresa",
+        "etapa": 3,
+        "data": "2022-05-01",
+        "expectativa": "2022-05-01"
+    },
+    {
+        "nome": "Darth Vader",
+        "email": "darthvader@imperio.com",
+        "telefone": "99999-9999",
+        "tipo": "Pessoa",
+        "etapa": 4,
+        "data": "2022-05-01",
+        "expectativa": "2022-05-01"
+    },
+    {
+        "nome": "Luke Skywalker",
+        "email": "lukegostosao@aliancarebelde.com",
+        "telefone": "1111-1111",
+        "tipo": "Pessoa",
+        "etapa": 3,
+        "data": "2022-05-01",
+        "expectativa": "2022-05-01"
+    },
+    {
+        "nome": "Leia Skywalker",
+        "email": "adorowookies@aliancarebelde.com",
+        "telefone": "2222-2222",
+        "tipo": "Pessoa",
+        "etapa": 1,
+        "data": "2022-05-01",
+        "expectativa": "2022-05-01"
+    }
+]
