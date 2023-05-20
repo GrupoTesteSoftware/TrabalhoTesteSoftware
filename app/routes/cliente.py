@@ -99,6 +99,52 @@ def create_cliente():
     status_code = 200
     return jsonify(response), status_code
 
+@cliente.route('/cliente/cadastrar', methods=['PUT'])
+def cadastrar_cliente():
+    
+    response_data = json.loads(request.data.decode())
+    if 'CPF_CNPJ' in response_data:
+        cpf_cnpj = response_data['CPF_CNPJ']
+    else:
+        cpf_cnpj = ""
+    nome = response_data['nome']
+    email = response_data['email']
+    telefone = response_data['telefone']
+    tipo = response_data['tipo']
+    etapa = response_data['etapa']
+    if "data" in response_data:
+        data = js_to_py_datetime(response_data['data'])
+    else:   
+        data = None
+    if "expectativa" in response_data:
+        expectativa = js_to_py_datetime(response_data['expectativa'])
+    else:
+        expectativa = None
+    
+
+    
+    cliente_obj = models.Cliente(
+        CPF_CNPJ = cpf_cnpj,
+        nome = nome,
+        email = email,
+        telefone = telefone,
+        tipo = tipo,
+        etapa = etapa,
+        data = data,
+        expectativa = expectativa
+    )
+
+    db.session.add(cliente_obj)
+
+    db.session.commit()
+    response = {
+        'success': True,
+    }
+    status_code = 200
+    return jsonify(response), status_code
+
+
+
 @cliente.route('/cliente/update/', methods=['POST'])
 def update_cliente():
     """Update post cliente"""
