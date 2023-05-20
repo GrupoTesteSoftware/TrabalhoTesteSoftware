@@ -10,3 +10,6 @@ def validarTelefoneFixo(telefoneFixo: str) -> bool:
     return True
 def validarCEP(CEP: str) -> bool:
     return True
+def validarData(data: str) -> bool:
+    return True
+

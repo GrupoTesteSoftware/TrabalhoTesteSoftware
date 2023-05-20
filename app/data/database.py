@@ -26,11 +26,11 @@ def populate_database(db):
     for cliente in clientes:
         query = (
             "INSERT OR IGNORE INTO cliente" 
-            "   (nome, email, telefone, tipo, etapa, data, expectativa) "
+            "   (nome, email, telefone, tipo, etapa, data, dataNascimento) "
             "VALUES "
             f"('{cliente['nome']}', '{cliente['email']}', '{cliente['telefone']}', "
             f"'{cliente['tipo']}', '{cliente['etapa']}', "
             f"'{cliente['data'] + '00:00:00'}', "
-            f"'{cliente['expectativa'] + '00:00:00'}')"
+            f"'{cliente['dataNascimento'] + '00:00:00'}')"
         )
         db.engine.execute(query)
