@@ -11,7 +11,7 @@ def verify_cliente_is_populated(db) -> bool:
     """Verify if cliente is populated already"""
     Session = sessionmaker(bind=db.engine)
     session = Session()
-    response = session.execute(text(" SELECT * FROM cliente LIMIT 1"))
+    response = session.execute(text(" SELECT * FROM clientes LIMIT 1"))
     return not response.fetchall()
 
 def populate_database(db):

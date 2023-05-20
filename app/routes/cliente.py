@@ -12,7 +12,7 @@ cliente = Blueprint('cliente', __name__)
 
 # Parameters: https://stackoverflow.com/questions/28229668/python-flask-how-to-get-route-id-from-url
 
-@cliente.route('/cliente/', methods=['GET'])
+@cliente.route('/clientes/', methods=['GET'])
 def retrieve_all_clientes():
     """Retrieve cliente"""
     '''
