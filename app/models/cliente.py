@@ -12,7 +12,7 @@ class Cliente(db.Model):
     tipo = db.Column(db.String, nullable=True)
     etapa = db.Column(db.Integer, nullable=True)
     data = db.Column(db.DateTime, nullable=True)
-    expectativa = db.Column(db.DateTime, nullable=True)
+    dataNascimento = db.Column(db.DateTime, nullable=True)
 
     def __init__(
                 self,
@@ -23,7 +23,7 @@ class Cliente(db.Model):
                 tipo=None,
                 etapa=None,
                 data=None,
-                expectativa=None
+                dataNascimento=None
             ):
         """Constructor to help write data"""
 
@@ -34,7 +34,7 @@ class Cliente(db.Model):
         self.tipo = tipo
         self.etapa = etapa
         self.data = data
-        self.expectativa = expectativa
+        self.dataNascimento = dataNascimento
 
     def __repr__(self) -> str:
         """Object representation"""

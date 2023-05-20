@@ -67,7 +67,7 @@ def create_cliente():
     tipo = response_data['tipo']
     etapa = response_data['etapa']
     data = js_to_py_datetime(response_data['data'])
-    expectativa = js_to_py_datetime(response_data['expectativa'])
+    dataNascimento = js_to_py_datetime(response_data['dataNascimento'])
 
     if int(id) == -1:
         cliente_obj = models.Cliente(
@@ -77,7 +77,7 @@ def create_cliente():
             tipo = tipo,
             etapa = etapa,
             data = data,
-            expectativa = expectativa
+            dataNascimento = dataNascimento
         )
 
         db.session.add(cliente_obj)
@@ -90,7 +90,7 @@ def create_cliente():
         setattr(cliente_obj, 'tipo', tipo)
         setattr(cliente_obj, 'etapa', int(etapa))
         setattr(cliente_obj, 'data', data)
-        setattr(cliente_obj, 'expectativa', expectativa)
+        setattr(cliente_obj, 'dataNascimento', dataNascimento)
 
     db.session.commit()
     response = {
@@ -106,7 +106,7 @@ def cadastrar_cliente():
     if 'CPF_CNPJ' in response_data:
         cpf_cnpj = response_data['CPF_CNPJ']
     else:
-        cpf_cnpj = ""
+        cpf_cnpj = None
     nome = response_data['nome']
     email = response_data['email']
     telefone = response_data['telefone']
@@ -116,10 +116,10 @@ def cadastrar_cliente():
         data = js_to_py_datetime(response_data['data'])
     else:   
         data = None
-    if "expectativa" in response_data:
-        expectativa = js_to_py_datetime(response_data['expectativa'])
+    if "dataNascimento" in response_data:
+        dataNascimento = js_to_py_datetime(response_data['dataNascimento'])
     else:
-        expectativa = None
+        dataNascimento = None
     
 
     
@@ -131,7 +131,7 @@ def cadastrar_cliente():
         tipo = tipo,
         etapa = etapa,
         data = data,
-        expectativa = expectativa
+        dataNascimento = dataNascimento
     )
 
     db.session.add(cliente_obj)
@@ -155,7 +155,7 @@ def update_cliente():
     tipo = request.form['tipo']
     etapa = request.form['etapa']
     data = request.form['data']
-    expectativa = request.form['expectativa']
+    dataNascimento = request.form['dataNascimento']
 
     cliente_obj = models.Cliente.query.filter_by(id=id).first()
 
@@ -165,7 +165,7 @@ def update_cliente():
     setattr(cliente_obj, 'tipo', tipo)
     setattr(cliente_obj, 'etapa', int(etapa))
     setattr(cliente_obj, 'data', data)
-    setattr(cliente_obj, 'expectativa', expectativa)
+    setattr(cliente_obj, 'dataNascimento', dataNascimento)
 
     db.session.commit()
     response = {

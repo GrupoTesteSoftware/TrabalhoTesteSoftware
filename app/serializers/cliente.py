@@ -14,7 +14,7 @@ class ClienteSchema(ma.SQLAlchemyAutoSchema):
     tipo = fields.Str(required=False)
     etapa = fields.Str(required=False)
     data = fields.Str(required=False)
-    expectativa = fields.Str(required=False)
+    dataNascimento = fields.Str(required=False)
 
     @validates('id')
     def validate_id(self, value):
