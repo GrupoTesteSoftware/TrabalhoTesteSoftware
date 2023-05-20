@@ -8,4 +8,5 @@ def validarCelular(celular:str) -> bool:
     return True
 def validarTelefoneFixo(telefoneFixo: str) -> bool:
     return True
-
+def validarCEP(CEP: str) -> bool:
+    return True
