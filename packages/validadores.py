@@ -12,4 +12,7 @@ def validarCEP(CEP: str) -> bool:
     return True
 def validarData(data: str) -> bool:
     return True
-
+def validarCPF_CNPJ(CPF_CNPJ: str,tipo: str) -> bool:
+    return (validarCPF(CPF_CNPJ) and  tipo == "Pessoa") or (validarCNPJ(CPF_CNPJ) and  tipo == "Empresa")
+def validarCodigoBarras(codigoBarras: str) -> bool:
+    return True
