@@ -7,6 +7,7 @@ from datetime import datetime
 from flask import Blueprint, jsonify, request
 from json import dumps as jsondump
 import json
+import app.response as response
 
 enderecoscliente = Blueprint('enderecoscliente', __name__)
 
@@ -36,8 +37,5 @@ def cadastrarEnderecoCliente(idCliente):
 
     db.session.add(enderecoCliente_obj)
     db.session.commit()
-    response = {
-        'success': True,
-    }
-    status_code = 200
-    return jsonify(response), status_code
+   
+    return  response.success()

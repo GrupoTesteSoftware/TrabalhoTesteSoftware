@@ -8,6 +8,8 @@ from datetime import datetime
 from flask import Blueprint, jsonify, request
 from json import dumps as jsondump
 import json
+import Packages.validadores as validadores
+import app.response as response
 
 cliente = Blueprint('cliente', __name__)
 
@@ -66,15 +68,12 @@ def atualizar_Cadastro_Cliente(id):
         telefone = response_data['telefone']
     if 'tipo' in response_data:
         tipo = response_data['tipo']
-
-    
     if "data" in response_data:
         data = js_to_py_datetime(response_data['data'])
-    
-        
     if "dataNascimento" in response_data:
         dataNascimento = js_to_py_datetime(response_data['dataNascimento'])
-        
+       
+
     cliente_obj = models.Cliente.query.filter_by(id=id).first()
     
     setattr(cliente_obj, 'nome', nome)
@@ -86,11 +85,8 @@ def atualizar_Cadastro_Cliente(id):
     setattr(cliente_obj, 'CPF_CNPJ', cpf_cnpj)
 
     db.session.commit()
-    response = {
-        'success': True,
-    }
-    status_code = 200
-    return jsonify(response), status_code
+    
+    return response.success()
 
 @cliente.route('/cliente/cadastrar', methods=['PUT'])
 def cadastrar_cliente():
@@ -127,11 +123,8 @@ def cadastrar_cliente():
     db.session.add(cliente_obj)
 
     db.session.commit()
-    response = {
-        'success': True,
-    }
-    status_code = 200
-    return jsonify(response), status_code
+
+    return response.success()
 
 
 
@@ -150,8 +143,4 @@ def update_cliente_column():
     setattr(cliente_obj, key, value)
 
     db.session.commit()
-    response = {
-        'success': True,
-    }
-    status_code = 200
-    return jsonify(response), status_code
+    return response.success()

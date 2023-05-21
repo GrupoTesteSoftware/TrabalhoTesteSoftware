@@ -1,7 +1,7 @@
-import jsonify
+from flask import  jsonify
 
 
-def success(data=None):
+def success(data:dict = None):
     response = {
         'success': True,
         'message': 'Operation successful',
