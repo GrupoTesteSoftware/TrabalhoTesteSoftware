@@ -50,7 +50,6 @@ def retrieve_empresa_etapa_clientes(etapa):
     return ClienteSchema(many=True).jsonify(result), 200
 
 
-
 def js_to_py_datetime(str_datetime: str):
     str_datetime = str_datetime.replace('.000Z', '')
     return datetime.strptime(str_datetime, '%Y-%m-%d')
@@ -99,14 +98,16 @@ def create_cliente():
     status_code = 200
     return jsonify(response), status_code
 
-@cliente.route('/cliente/cadastrar', methods=['PUT'])
-def cadastrar_cliente():
-    
+@cliente.route('/cliente/<id>/atualizar', methods=['PATCH'])
+def atualizar_Cadastro_Cliente(id):
+    cpf_cnpj = None
+    data = None
+    dataNascimento = None
+
     response_data = json.loads(request.data.decode())
     if 'CPF_CNPJ' in response_data:
         cpf_cnpj = response_data['CPF_CNPJ']
-    else:
-        cpf_cnpj = None
+         
     nome = response_data['nome']
     email = response_data['email']
     telefone = response_data['telefone']
@@ -114,15 +115,50 @@ def cadastrar_cliente():
     etapa = response_data['etapa']
     if "data" in response_data:
         data = js_to_py_datetime(response_data['data'])
-    else:   
-        data = None
+    
+        
     if "dataNascimento" in response_data:
         dataNascimento = js_to_py_datetime(response_data['dataNascimento'])
-    else:
-        dataNascimento = None
+        
+    cliente_obj = models.Cliente.query.filter_by(id=id).first()
     
+    setattr(cliente_obj, 'nome', nome)
+    setattr(cliente_obj, 'email', email)
+    setattr(cliente_obj, 'telefone', telefone)
+    setattr(cliente_obj, 'tipo', tipo)
+    setattr(cliente_obj, 'etapa', int(etapa))
+    setattr(cliente_obj, 'data', data)
+    setattr(cliente_obj, 'dataNascimento', dataNascimento)
+    setattr(cliente_obj, 'CPF_CNPJ', cpf_cnpj)
 
-    
+    db.session.commit()
+    response = {
+        'success': True,
+    }
+    status_code = 200
+    return jsonify(response), status_code
+
+@cliente.route('/cliente/cadastrar', methods=['PUT'])
+def cadastrar_cliente():
+    cpf_cnpj = None
+    data = None
+    dataNascimento = None
+
+    response_data = json.loads(request.data.decode())
+    if 'CPF_CNPJ' in response_data:
+        cpf_cnpj = response_data['CPF_CNPJ']
+   
+    nome = response_data['nome']
+    email = response_data['email']
+    telefone = response_data['telefone']
+    tipo = response_data['tipo']
+    etapa = response_data['etapa']
+    if "data" in response_data:
+        data = js_to_py_datetime(response_data['data'])
+        
+    if "dataNascimento" in response_data:
+        dataNascimento = js_to_py_datetime(response_data['dataNascimento'])
+ 
     cliente_obj = models.Cliente(
         CPF_CNPJ = cpf_cnpj,
         nome = nome,

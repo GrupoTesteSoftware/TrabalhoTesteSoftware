@@ -8,6 +8,7 @@ class ClienteSchema(ma.SQLAlchemyAutoSchema):
         model = Cliente
         load_instance = True
 
+    CPF_CNPJ = fields.Str(required=False)
     nome = fields.Str(required=True)
     email = fields.Str(required=False)
     telefone = fields.Str(required=False)
