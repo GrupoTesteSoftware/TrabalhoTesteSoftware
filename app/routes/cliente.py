@@ -105,22 +105,44 @@ def cadastrar_cliente():
     cpf_cnpj = None
     data = None
     dataNascimento = None
+    celular = None
 
     response_data = json.loads(request.data.decode())
+    if 'nome' not in response_data:
+        return response.bad_request("Para cadastrar um cliente é preciso de um nome")
+
     if 'CPF_CNPJ' in response_data:
         cpf_cnpj = response_data['CPF_CNPJ']
-   
+    
+       
     nome = response_data['nome']
     email = response_data['email']
     telefone = response_data['telefone']
     tipo = response_data['tipo']
-    celular = response_data['celular']
+    if 'celular' in response_data:
+        celular = response_data['celular']
     if "data" in response_data:
         data = js_to_py_datetime(response_data['data'])
         
     if "dataNascimento" in response_data:
         dataNascimento = js_to_py_datetime(response_data['dataNascimento'])
  
+    resultado,mensagem = pipelineValidacoes.Executar(
+        [
+            (validadores.validarCPF_CNPJ(cpf_cnpj,tipo), "CPF ou CNPJ invalido."),
+            (validadores.validarEmail(email), "Email Invalido"),
+            (validadores.validarTelefoneFixo(telefone), "Telefone Fixo Invalido"),
+            (validadores.validarData(dataNascimento), "Data de nascimento Invalida"),
+            (validadores.validarCelular(celular), "Celular Invalido")
+        ]
+    )
+
+    if  models.Cliente.query.filter_by(CPF_CNPJ=cpf_cnpj).first():
+        return response.bad_request("Ja existe um usario com esse CPF/CNPJ")
+    
+    if resultado is False: 
+        return response.bad_request(mensagem)
+
     cliente_obj = models.Cliente(
         CPF_CNPJ = cpf_cnpj,
         nome = nome,
@@ -135,8 +157,8 @@ def cadastrar_cliente():
     db.session.add(cliente_obj)
 
     db.session.commit()
-
-    return response.success()
+    
+    return response.success({"idCliente":cliente_obj.id})
 
 
 
