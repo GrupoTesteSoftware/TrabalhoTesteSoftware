@@ -10,33 +10,33 @@ def success(data:dict = None):
     return jsonify(response), 200
 
 
-def bad_request(messagem: str):
+def bad_request(mensagem: str):
     response = {
         'success': False,
-        'message': 'Bad request: ' + + messagem
+        'message': "Bad request: " + mensagem
     }
     return jsonify(response), 400
 
 
-def unauthorized(messagem : str):
+def unauthorized(mensagem : str):
     response = {
         'success': False,
-        'message': 'Unauthorized: ' + + messagem
+        'message': "Unauthorized: " +  mensagem
     }
     return jsonify(response), 401
 
 
-def not_found(messagem : str):
+def not_found(mensagem : str):
     response = {
         'success': False,
-        'message': 'Resource not found: ' + messagem
+        'message': 'Resource not found: ' + mensagem
     }
     return jsonify(response), 404
 
 
-def internal_server_error(messagem: str):
+def internal_server_error(mensagem: str):
     response = {
         'success': False,
-        'message': 'Internal server error: '+ messagem
+        'message': 'Internal server error: '+ mensagem
     }
     return jsonify(response), 500
