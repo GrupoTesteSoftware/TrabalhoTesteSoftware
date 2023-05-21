@@ -180,3 +180,11 @@ def validarCEP(cep: str) -> bool:
 
 def validarCodigoBarras(codigoBarras: str) -> bool:
   return True 
+
+def validarData(data: str) -> bool:
+  data_standard = re.compile("[0-9]{4}[/][0-9]{2}[/][0-9]{2}$")
+  legal_format = data_standard.match(data)
+  if(not legal_format):
+    return False
+  #Falta limitar meses e dias
+  

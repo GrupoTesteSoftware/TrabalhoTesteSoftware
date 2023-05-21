@@ -33,15 +33,15 @@ class TestValidarCNPJ(unittest.TestCase):
         self.assertTrue(resultado)
 
     def test_cnpj_valido(self):
-        cnpj_valido = '12.345.678/0001-90'
+        cnpj_valido = '11.222.333/0001-81'
         self.assertTrue(validadores.validarCNPJ(cnpj_valido))  
         
-    def test_cnpj_fromato_incorreto(self):
-        cnpj_formatoInvalido = '12345678000190'
-        self.assertTrue(validadores.validarCNPJ(cnpj_formatoInvalido))
+    def test_cnpj_formato_incorreto(self):
+        cnpj_formatoInvalido = '11222333000181'
+        self.assertFalse(validadores.validarCNPJ(cnpj_formatoInvalido))
 
     def test_cnpj_invalido(self):
-        cnpj_invalido = '12.345.678/0001-91'
+        cnpj_invalido = '11.222.343/0001-81'
         self.assertFalse(validadores.validarCNPJ(cnpj_invalido))
     
 
@@ -52,7 +52,7 @@ class TestValidarCEP(unittest.TestCase):
         self.assertTrue(validadores.validarCEP(cepIndefinido))  
     
     def test_cep_valido(self):
-        cep_valido = '12345-678'
+        cep_valido = '12.345-678'
         self.assertTrue(validadores.validarCEP(cep_valido))  
 
     def test_cep_invalido(self):
@@ -81,7 +81,7 @@ class TestValidarCelular(unittest.TestCase):
         self.assertTrue(validadores.validarCelular(celular_valido))  
 
     def test_celular_oito_digitos_invalido(self):
-        celular_invalido = '(31) 9123a-456'
+        celular_invalido = '(31) 9123-a567'
         self.assertFalse(validadores.validarCelular(celular_invalido))  
 
     def test_celular_nove_digitos_valido(self):
@@ -108,11 +108,11 @@ class TestValidarEmail(unittest.TestCase):
 class Testdata(unittest.TestCase):
     def dataValida(self):
         dataValida = '2023-08-01'
-        self.assertTrue(validadores.validarEmail(dataValida))  
+        self.assertTrue(validadores.validarData(dataValida))  
 
     def test_data_indefinida(self):
         dataIndefinida = None
-        self.assertFalse(validadores.validarEmail(dataIndefinida)) 
+        self.assertFalse(validadores.validarData(dataIndefinida)) 
 
 if __name__ == '__main__':
     unittest.main()
