@@ -2,14 +2,13 @@
 from app import db
 from app import models
 from app.serializers import ClienteSchema
-
-
 from datetime import datetime
 from flask import Blueprint, jsonify, request
 from json import dumps as jsondump
 import json
 import Packages.validadores as validadores
 import app.response as response
+import app.pipelineValidacoes as pipelineValidacoes
 
 cliente = Blueprint('cliente', __name__)
 
@@ -42,24 +41,21 @@ def retrieve_pessoa_clientes():
     result = models.Cliente.query.filter_by(tipo='Pessoa' ).all()
     return ClienteSchema(many=True).jsonify(result), 200
 
-
-
 def js_to_py_datetime(str_datetime: str):
     str_datetime = str_datetime.replace('.000Z', '')
     return datetime.strptime(str_datetime, '%Y-%m-%d')
-
-
 
 @cliente.route('/cliente/<id>/atualizar', methods=['PATCH'])
 def atualizar_Cadastro_Cliente(id):
     cpf_cnpj = None
     data = None
     dataNascimento = None
-    
+    celular = None
+    nome = None
 
     response_data = json.loads(request.data.decode())
     if 'CPF_CNPJ' in response_data:
-        cpf_cnpj = response_data['CPF_CNPJ']
+        cpf_cnpj = response_data['CPF_CNPJ'] 
     if  'nome' in response_data:    
         nome = response_data['nome']
     if 'email' in  response_data:
@@ -68,13 +64,29 @@ def atualizar_Cadastro_Cliente(id):
         telefone = response_data['telefone']
     if 'tipo' in response_data:
         tipo = response_data['tipo']
-    if "data" in response_data:
+    if 'data' in response_data:
         data = js_to_py_datetime(response_data['data'])
-    if "dataNascimento" in response_data:
+    if 'dataNascimento' in response_data:
         dataNascimento = js_to_py_datetime(response_data['dataNascimento'])
-       
-
+    if 'celular' in response_data:
+        celular = response_data['celular']
+    
+    resultado,mensagem = pipelineValidacoes.Executar(
+        [
+            (validadores.validarCPF_CNPJ(cpf_cnpj,tipo), "CPF ou CNPJ invalido."),
+            (validadores.validarEmail(email), "Email Invalido"),
+            (validadores.validarTelefoneFixo(telefone), "Telefone Fixo Invalido"),
+            (validadores.validarData(dataNascimento), "Data de nascimento Invalida"),
+            (validadores.validarCelular(celular), "Celular Invalido")
+        ]
+    )
+    if resultado is False: 
+        return response.bad_request(mensagem)
+    
     cliente_obj = models.Cliente.query.filter_by(id=id).first()
+    if cliente_obj is None:
+        return response.bad_request("Cliente Nao Encontrado")
+
     
     setattr(cliente_obj, 'nome', nome)
     setattr(cliente_obj, 'email', email)
