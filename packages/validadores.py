@@ -1,6 +1,9 @@
 import re
 
-def validarCPF(CPF:str) -> bool:
+def validarCPF(cpf:str) -> bool:
+    if(cpf==None):
+      return True
+    
     cpf_standard = re.compile("[0-9]{3}[.][0-9]{3}[.][0-9]{3}[-][0-9]{2}$")
     legal_format = cpf_standard.match(cpf)
     if(not legal_format):
@@ -36,6 +39,9 @@ def validarCPF(CPF:str) -> bool:
     return cpf==init_cpf
 
 def validarCNPJ(cnpj:str) -> bool:
+  if(cnpj==None):
+    return True
+  
   cnpj_standard = re.compile("[0-9]{2}[.][0-9]{3}[.][0-9]{3}[/][0-9]{4}[-][0-9]{2}$")
   legal_format = cnpj_standard.match(cnpj)
   if(not legal_format):
@@ -72,6 +78,9 @@ def validarCNPJ(cnpj:str) -> bool:
   return cnpj==init_cnpj
 
 def validarEmail(email:str) -> bool:
+  if(email==None):
+    return True
+
   size = len(email)
   at, dot, dot_before_at ,dot_after_at = 0, 0, 0, 0
   for i in range(size):
@@ -97,6 +106,9 @@ def validarEmail(email:str) -> bool:
     return False
 
 def validarCelular(celular:str) -> bool:
+  if(celular==None):
+    return True
+  
   celular = celular.replace('+', '')
   celular = celular.replace('(', '')
   celular = celular.replace(')', '')
@@ -130,6 +142,9 @@ def validarCelular(celular:str) -> bool:
   return True
 
 def validarTelefoneFixo(telefoneFixo: str) -> bool:
+  if(telefoneFixo==None):
+    return True
+  
   telefoneFixo = telefoneFixo.replace('+', '')
   telefoneFixo = telefoneFixo.replace('(', '')
   telefoneFixo = telefoneFixo.replace(')', '')
@@ -154,6 +169,9 @@ def validarTelefoneFixo(telefoneFixo: str) -> bool:
   return True
 
 def validarCEP(cep: str) -> bool:
+  if(cep==None):
+    return True
+  
   cep_standard = re.compile("[0-9]{2}[.][0-9]{3}[-][0-9]{3}$")
   legal_format = cep_standard.match(cep)
   if(not legal_format):
