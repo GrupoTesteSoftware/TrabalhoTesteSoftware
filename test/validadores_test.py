@@ -23,7 +23,7 @@ class TestValidarCPF(unittest.TestCase):
 
     def test_cpf_formato_incorreto(self):
         cpfFormatoInvalido = '12345678910'  
-        resultado = validadores.validarCPF(cpf)
+        resultado = validadores.validarCPF(cpfFormatoInvalido)
         self.assertFalse(resultado)  
 class TestValidarCNPJ(unittest.TestCase):
     
