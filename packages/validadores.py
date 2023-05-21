@@ -159,3 +159,6 @@ def validarCEP(cep: str) -> bool:
   if(not legal_format):
     return False
   return True
+
+def validarCodigoBarras(codigoBarras: str) -> bool:
+  return True 
