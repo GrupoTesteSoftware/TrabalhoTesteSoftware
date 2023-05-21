@@ -1,7 +1,7 @@
 import re
 
 def validarCPF(CPF:str) -> bool:
-    cpf_standard = re.compile("[0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2}$")
+    cpf_standard = re.compile("[0-9]{3}[.][0-9]{3}[.][0-9]{3}[-][0-9]{2}$")
     legal_format = cpf_standard.match(cpf)
     if(not legal_format):
       return False
@@ -36,7 +36,7 @@ def validarCPF(CPF:str) -> bool:
     return cpf==init_cpf
 
 def validarCNPJ(cnpj:str) -> bool:
-  cnpj_standard = re.compile("[0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2}$")
+  cnpj_standard = re.compile("[0-9]{2}[.][0-9]{3}[.][0-9]{3}[/][0-9]{4}[-][0-9]{2}$")
   legal_format = cnpj_standard.match(cnpj)
   if(not legal_format):
     return False
@@ -154,7 +154,7 @@ def validarTelefoneFixo(telefoneFixo: str) -> bool:
   return True
 
 def validarCEP(cep: str) -> bool:
-  cep_standard = re.compile("[0-9]{2}[.]?[0-9]{3}[-]?[0-9]{3}$")
+  cep_standard = re.compile("[0-9]{2}[.][0-9]{3}[-][0-9]{3}$")
   legal_format = cep_standard.match(cep)
   if(not legal_format):
     return False
