@@ -13,7 +13,7 @@ class ClienteSchema(ma.SQLAlchemyAutoSchema):
     email = fields.Str(required=False)
     telefone = fields.Str(required=False)
     tipo = fields.Str(required=False)
-    etapa = fields.Str(required=False)
+    celular = fields.Str(required=False)
     data = fields.Str(required=False)
     dataNascimento = fields.Str(required=False)
 

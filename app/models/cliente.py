@@ -10,7 +10,7 @@ class Cliente(db.Model):
     email = db.Column(db.String, nullable=True)
     telefone = db.Column(db.String, nullable=True)
     tipo = db.Column(db.String, nullable=True)
-    etapa = db.Column(db.Integer, nullable=True)
+    celular = db.Column(db.String, nullable=True)
     data = db.Column(db.DateTime, nullable=True)
     dataNascimento = db.Column(db.DateTime, nullable=True)
 
@@ -21,7 +21,7 @@ class Cliente(db.Model):
                 email=None,
                 telefone=None,
                 tipo=None,
-                etapa=None,
+                celular=None,
                 data=None,
                 dataNascimento=None
             ):
@@ -32,7 +32,7 @@ class Cliente(db.Model):
         self.email = email
         self.telefone = telefone
         self.tipo = tipo
-        self.etapa = etapa
+        self.celular = celular
         self.data = data
         self.dataNascimento = dataNascimento
 

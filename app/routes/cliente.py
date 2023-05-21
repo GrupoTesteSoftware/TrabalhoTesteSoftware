@@ -40,14 +40,14 @@ def retrieve_pessoa_clientes():
     result = models.Cliente.query.filter_by(tipo='Pessoa' ).all()
     return ClienteSchema(many=True).jsonify(result), 200
 
-@cliente.route('/cliente/pessoa/etapa=<etapa>', methods=['GET'])
-def retrieve_pessoa_etapa_clientes(etapa):
-    result = models.Cliente.query.filter_by(tipo='Pessoa' , etapa=etapa).all()
+@cliente.route('/cliente/pessoa/celular=<celular>', methods=['GET'])
+def retrieve_pessoa_celular_clientes(celular):
+    result = models.Cliente.query.filter_by(tipo='Pessoa' , celular=celular).all()
     return ClienteSchema(many=True).jsonify(result), 200
 
-@cliente.route('/cliente/empresa/etapa=<etapa>', methods=['GET'])
-def retrieve_empresa_etapa_clientes(etapa):
-    result = models.Cliente.query.filter_by(tipo='Empresa' , etapa=etapa).all()
+@cliente.route('/cliente/empresa/celular=<celular>', methods=['GET'])
+def retrieve_empresa_celular_clientes(celular):
+    result = models.Cliente.query.filter_by(tipo='Empresa' , celular=celular).all()
     return ClienteSchema(many=True).jsonify(result), 200
 
 
@@ -65,7 +65,7 @@ def create_cliente():
     email = response_data['email']
     telefone = response_data['telefone']
     tipo = response_data['tipo']
-    etapa = response_data['etapa']
+    celular = response_data['celular']
     data = js_to_py_datetime(response_data['data'])
     dataNascimento = js_to_py_datetime(response_data['dataNascimento'])
 
@@ -75,7 +75,7 @@ def create_cliente():
             email = email,
             telefone = telefone,
             tipo = tipo,
-            etapa = etapa,
+            celular = celular,
             data = data,
             dataNascimento = dataNascimento
         )
@@ -88,7 +88,7 @@ def create_cliente():
         setattr(cliente_obj, 'email', email)
         setattr(cliente_obj, 'telefone', telefone)
         setattr(cliente_obj, 'tipo', tipo)
-        setattr(cliente_obj, 'etapa', int(etapa))
+        setattr(cliente_obj, 'celular', int(celular))
         setattr(cliente_obj, 'data', data)
         setattr(cliente_obj, 'dataNascimento', dataNascimento)
 
@@ -157,7 +157,7 @@ def cadastrar_cliente():
     email = response_data['email']
     telefone = response_data['telefone']
     tipo = response_data['tipo']
-    etapa = response_data['etapa']
+    celular = response_data['celular']
     if "data" in response_data:
         data = js_to_py_datetime(response_data['data'])
         
@@ -170,7 +170,7 @@ def cadastrar_cliente():
         email = email,
         telefone = telefone,
         tipo = tipo,
-        etapa = etapa,
+        celular = celular,
         data = data,
         dataNascimento = dataNascimento
     )
@@ -194,7 +194,7 @@ def update_cliente():
     email = request.form['email']
     telefone = request.form['telefone']
     tipo = request.form['tipo']
-    etapa = request.form['etapa']
+    celular = request.form['celular']
     data = request.form['data']
     dataNascimento = request.form['dataNascimento']
 
@@ -204,7 +204,7 @@ def update_cliente():
     setattr(cliente_obj, 'email', email)
     setattr(cliente_obj, 'telefone', telefone)
     setattr(cliente_obj, 'tipo', tipo)
-    setattr(cliente_obj, 'etapa', int(etapa))
+    setattr(cliente_obj, 'celular', int(celular))
     setattr(cliente_obj, 'data', data)
     setattr(cliente_obj, 'dataNascimento', dataNascimento)
 
@@ -224,7 +224,7 @@ def update_cliente_column():
 
     cliente_obj = models.Cliente.query.filter_by(id=id).first()
 
-    if key == "etapa":
+    if key == "celular":
         value = int(value)
 
     setattr(cliente_obj, key, value)
@@ -259,7 +259,7 @@ def update_get_cliente_column(id, key, value):
 
     cliente_obj = models.Cliente.query.filter_by(id=id).first()
 
-    if key == "etapa":
+    if key == "celular":
         value = int(value)
 
     setattr(cliente_obj, key, value)

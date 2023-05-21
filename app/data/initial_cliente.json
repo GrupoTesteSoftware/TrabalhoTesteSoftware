@@ -4,7 +4,7 @@
         "email": "joao_do_grilao@yahoo.com",
         "telefone": "(63) 3135-7981", 
         "tipo": "Pessoa",
-        "etapa": 4,
+        "celular": 4,
         "data": "2022-03-27",
         "dataNascimento": "2022-03-27"
     },
@@ -13,7 +13,7 @@
         "email": "franciso_poucas@gmail.com",
         "telefone": "(82) 2717-8038", 
         "tipo": "Pessoa",
-        "etapa": 2,
+        "celular": 2,
         "data": "2022-04-04",
         "dataNascimento": "2022-04-04"
   
@@ -23,7 +23,7 @@
         "email": "dislike_gaitas@gmail.com",
         "telefone": "(37) 2348-3367", 
         "tipo": "Pessoa",
-        "etapa": 1,
+        "celular": 1,
         "data": "2022-04-06",
         "dataNascimento": "2022-04-06"
     },
@@ -32,7 +32,7 @@
         "email": "amante_dos_animais@hotmail.com",
         "telefone": "(91) 3371-9085", 
         "tipo": "Pessoa",
-        "etapa": 2,
+        "celular": 2,
         "data": "2022-04-09",
         "dataNascimento": "2022-04-09"
     },
@@ -41,7 +41,7 @@
         "email": "cornoTambemAma@outlook.com",
         "telefone": "(91) 3371-9085", 
         "tipo": "Empresa",
-        "etapa": 1,
+        "celular": 1,
         "data": "2022-04-12",
         "dataNascimento": "2022-04-12"
     },
@@ -50,7 +50,7 @@
         "email": "coadjuvante@outlook.com",
         "telefone": "(85) 3348-5881", 
         "tipo": "Pessoa",
-        "etapa": 2,
+        "celular": 2,
         "data": "2022-04-13",
         "dataNascimento": "2022-04-13"
     },
@@ -59,7 +59,7 @@
         "email": "capitalismo_consciente@salvacao.com",
         "telefone": "(85) 3348-5881", 
         "tipo": "Empresa",
-        "etapa": 3,
+        "celular": 3,
         "data": "2022-05-01",
         "dataNascimento": "2022-05-01"
     },
@@ -68,7 +68,7 @@
         "email": "darthvader@imperio.com",
         "telefone": "99999-9999",
         "tipo": "Pessoa",
-        "etapa": 4,
+        "celular": 4,
         "data": "2022-05-01",
         "dataNascimento": "2022-05-01"
     },
@@ -77,7 +77,7 @@
         "email": "lukegostosao@aliancarebelde.com",
         "telefone": "1111-1111",
         "tipo": "Pessoa",
-        "etapa": 3,
+        "celular": 3,
         "data": "2022-05-01",
         "dataNascimento": "2022-05-01"
     },
@@ -86,7 +86,7 @@
         "email": "adorowookies@aliancarebelde.com",
         "telefone": "2222-2222",
         "tipo": "Pessoa",
-        "etapa": 1,
+        "celular": 1,
         "data": "2022-05-01",
         "dataNascimento": "2022-05-01"
     }
