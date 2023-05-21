@@ -41,10 +41,3 @@ def cadastrarEnderecoCliente(idCliente):
     }
     status_code = 200
     return jsonify(response), status_code
-
-
-@enderecoscliente.route('/cliente/<idCliente>/endereco/<idEndereco>', methods=['PATCH'])
-def enderecosCliente(idCliente,idEndereco):
-    result = models.EnderecosCliente.query.filter_by(idCliente=idCliente).all()
-    return EnderecosClienteSchema(many=True).jsonify(result), 200
-    
