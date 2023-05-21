@@ -1,15 +1,16 @@
 from app import ma
-from app.models import FakeLead
+from app.models import Produto
 
 from marshmallow import fields, validates, ValidationError
 
-class FakeLeadSchema(ma.SQLAlchemyAutoSchema):
+class ProdutoSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = FakeLead
+        model = Produto
         load_instance = True
 
-    company = fields.Str(required=True)
-    contact = fields.Str(required=True)
+    nome = fields.Str(required=True)
+    codigoBarras = fields.Str(required=False)
+    idFornecedor =fields.Str(required=False)
 
     @validates('id')
     def validate_id(self, value):

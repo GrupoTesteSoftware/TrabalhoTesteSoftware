@@ -3,7 +3,7 @@
 import json
 import os
 from app.models import Cliente
-from app.models import FakeLead
+from app.models import Produto
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import text
 

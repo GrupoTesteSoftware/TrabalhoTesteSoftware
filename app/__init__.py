@@ -27,10 +27,10 @@ def create_app() -> Flask:
             populate_database(db)
 
         # Include our Routes in our context
-        from app.routes import cliente, fake_lead, enderecoscliente
+        from app.routes import cliente, Produto, enderecoscliente
 
         # Register Blueprints
         app.register_blueprint(cliente)
-        app.register_blueprint(fake_lead)
+        app.register_blueprint(Produto)
         app.register_blueprint(enderecoscliente)
         return app

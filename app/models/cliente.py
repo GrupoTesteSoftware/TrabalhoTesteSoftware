@@ -5,7 +5,7 @@ class Cliente(db.Model):
     __tablename__ = 'clientes'  # Real table name, since is case sensitive
 
     id = db.Column(db.Integer, primary_key=True)
-    CPF_CNPJ = db.Column(db.String,nullable=True)
+    CPF_CNPJ = db.Column(db.String,nullable=True,unique=True)
     nome = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=True)
     telefone = db.Column(db.String, nullable=True)
