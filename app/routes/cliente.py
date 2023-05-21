@@ -3,6 +3,7 @@ from app import db
 from app import models
 from app.serializers import ClienteSchema
 
+
 from datetime import datetime
 from flask import Blueprint, jsonify, request
 from json import dumps as jsondump
@@ -103,16 +104,21 @@ def atualizar_Cadastro_Cliente(id):
     cpf_cnpj = None
     data = None
     dataNascimento = None
+    
 
     response_data = json.loads(request.data.decode())
     if 'CPF_CNPJ' in response_data:
         cpf_cnpj = response_data['CPF_CNPJ']
-         
-    nome = response_data['nome']
-    email = response_data['email']
-    telefone = response_data['telefone']
-    tipo = response_data['tipo']
-    etapa = response_data['etapa']
+    if  'nome' in response_data:    
+        nome = response_data['nome']
+    if 'email' in  response_data:
+        email = response_data['email']
+    if 'telefone' in response_data:
+        telefone = response_data['telefone']
+    if 'tipo' in response_data:
+        tipo = response_data['tipo']
+
+    
     if "data" in response_data:
         data = js_to_py_datetime(response_data['data'])
     
@@ -126,7 +132,6 @@ def atualizar_Cadastro_Cliente(id):
     setattr(cliente_obj, 'email', email)
     setattr(cliente_obj, 'telefone', telefone)
     setattr(cliente_obj, 'tipo', tipo)
-    setattr(cliente_obj, 'etapa', int(etapa))
     setattr(cliente_obj, 'data', data)
     setattr(cliente_obj, 'dataNascimento', dataNascimento)
     setattr(cliente_obj, 'CPF_CNPJ', cpf_cnpj)
