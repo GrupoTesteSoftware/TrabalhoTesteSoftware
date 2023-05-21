@@ -48,21 +48,31 @@ class TestValidarTelefoneFixo(unittest.TestCase):
         self.assertFalse(validadores.validarTelefoneFixo(telefone_invalido))  # Espera-se que o resultado seja False
 class TestValidarCelular(unittest.TestCase):
     def test_celular_oito_digitos_valido(self):
-        celular_valido = '91234567'
+        celular_valido = '(31) 9123-4567'
         self.assertTrue(validadores.validarCelular(celular_valido))  # Espera-se que o resultado seja True
 
     def test_celular_oito_digitos_invalido(self):
-        celular_invalido = '9123456'
+        celular_invalido = '(31) 9123a-456'
         self.assertFalse(validadores.validarCelular(celular_invalido))  # Espera-se que o resultado seja False
 
     def test_celular_nove_digitos_valido(self):
-        celular_valido = '912345678'
+        celular_valido = '(21) 91234-5678'
         self.assertTrue(validadores.validarCelular(celular_valido))  # Espera-se que o resultado seja True
 
     def test_celular_nove_digitos_invalido(self):
-        celular_invalido = '9123456789'
+        celular_invalido = '(31) 912 34-567 89'
         self.assertFalse(validadores.validarCelular(celular_invalido))  # Espera-se que o resultado seja False
 class TestValidarEmail(unittest.TestCase):
+    def test_email_valido(self):
+        email_valido = 'exemplo@example.com.br'
+        self.assertTrue(validadores.validarEmail(email_valido))  # Espera-se que o resultado seja True
+
+    def test_email_invalido(self):
+        email_invalido = 'exemploexample.com'
+        self.assertFalse(validadores.validarEmail(email_invalido))  # Espera-se que o resultado seja False
+
+
+class Testdata(unittest.TestCase):
     def test_email_valido(self):
         email_valido = 'exemplo@example.com'
         self.assertTrue(validadores.validarEmail(email_valido))  # Espera-se que o resultado seja True
