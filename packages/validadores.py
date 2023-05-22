@@ -1,4 +1,5 @@
 import re
+from datetime import datetime
 
 def validarCPF(cpf:str) -> bool:
     if cpf==None:
@@ -170,11 +171,12 @@ def validarData(data: str) -> bool:
       return True
   if data == '': 
       return False
-  data_standard = re.compile("[0-9]{4}[/][0-9]{2}[/][0-9]{2}$")
-  legal_format = data_standard.match(data)
-  if(not legal_format):
-    return False
-  #Falta limitar meses e dias
+  formato = "%Y-%m-%d"
+  try:
+      datetime.strptime(data, formato)
+      return True
+  except ValueError:
+      return False
   
 def validarEstado(estado: str) -> bool:
   if estado is None:
