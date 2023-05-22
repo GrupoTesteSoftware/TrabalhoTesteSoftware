@@ -8,8 +8,6 @@ import app.response as response
 import json
 Produto = Blueprint('Produto', __name__)
 
-# Parameters: https://stackoverflow.com/questions/28229668/python-flask-how-to-get-route-id-from-url
-
 @Produto.route('/Produtos/', methods=['GET'])
 def listar_todos_produtos():
 

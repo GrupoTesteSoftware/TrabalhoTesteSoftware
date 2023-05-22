@@ -2,8 +2,7 @@ from .rdb import db
 
 class Produto(db.Model):
 
-    __tablename__ = 'produtos'  # Real table name, since is case sensitive
-
+    __tablename__ = 'produtos'  # nome real da tabela (Case Sensitive)
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String, nullable=False)
     codigoBarras = db.Column(db.String,nullable=True,unique=True)

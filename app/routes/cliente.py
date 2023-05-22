@@ -1,4 +1,3 @@
-# cliente routes
 from app import db
 from app import models
 from app.serializers import ClienteSchema
@@ -11,8 +10,6 @@ import app.response as response
 import app.pipelineValidacoes as pipelineValidacoes
 
 cliente = Blueprint('cliente', __name__)
-
-# Parameters: https://stackoverflow.com/questions/28229668/python-flask-how-to-get-route-id-from-url
 
 @cliente.route('/clientes/', methods=['GET'])
 def listar_todos_clientes():
@@ -30,9 +27,6 @@ def retrieve_pessoa_clientes():
     result = models.Cliente.query.filter_by(tipo='Pessoa' ).all()
     return ClienteSchema(many=True).jsonify(result), 200
 
-def js_to_py_datetime(str_datetime: str):
-    str_datetime = str_datetime.replace('.000Z', '')
-    return datetime.strptime(str_datetime, '%Y-%m-%d')
 
 @cliente.route('/cliente/<id>/atualizar', methods=['PATCH'])
 def atualizar_Cadastro_Cliente(id):
@@ -54,9 +48,9 @@ def atualizar_Cadastro_Cliente(id):
     if 'tipo' in response_data:
         tipo = response_data['tipo']
     if 'data' in response_data:
-        data = js_to_py_datetime(response_data['data'])
+        data = response_data['data']
     if 'dataNascimento' in response_data:
-        dataNascimento = js_to_py_datetime(response_data['dataNascimento'])
+        dataNascimento = response_data['dataNascimento']
     if 'celular' in response_data:
         celular = response_data['celular']
     
@@ -111,7 +105,7 @@ def cadastrar_cliente():
     if 'celular' in response_data:
         celular = response_data['celular']
     if "data" in response_data:
-        data = js_to_py_datetime(response_data['data'])
+        data = response_data['data']
         
     if "dataNascimento" in response_data:
         dataNascimento = js_to_py_datetime(response_data['dataNascimento'])
