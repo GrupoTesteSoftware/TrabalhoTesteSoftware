@@ -121,7 +121,7 @@ class TestValidarEmail(unittest.TestCase):
         self.assertFalse(validadores.validarEmail(email_sem_ponto))        
 
 class TestValidarEstado(unittest.TestCase):
-    def estadoValido(self):
+    def test_estado_valido(self):
         estado_valido = 'MG'
         self.assertTrue(validadores.validarEstado(estado_valido))  
 
@@ -131,7 +131,20 @@ class TestValidarEstado(unittest.TestCase):
 
     def test_estado_invalido(self):
         estado_invalido = 'ZZ'
-        self.assertFalse(validadores.validarEstado(estado_invalido)) 
+        self.assertFalse(validadores.validarEstado(estado_invalido))
+
+class TestValidarNumero(unittest.TestCase):
+    def test_numero_valido(self):
+        numero_valido = '208'
+        self.assertTrue(validadores.validarNumero(numero_valido))  
+
+    def test_numero_indefinido(self):
+        numero_indefinido = ""
+        self.assertFalse(validadores.validarNumero(numero_indefinido)) 
+
+    def test_numero_invalido(self):
+        numero_invalido = 'abcde'
+        self.assertFalse(validadores.validarNumero(numero_invalido))         
 
 class Testdata(unittest.TestCase):
     def dataValida(self):
