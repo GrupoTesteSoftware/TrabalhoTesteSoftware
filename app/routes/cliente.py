@@ -15,18 +15,7 @@ cliente = Blueprint('cliente', __name__)
 # Parameters: https://stackoverflow.com/questions/28229668/python-flask-how-to-get-route-id-from-url
 
 @cliente.route('/clientes/', methods=['GET'])
-def retrieve_all_clientes():
-    """Retrieve cliente"""
-    '''
-    id  = request.args.get('id', None)
-    empresa  = request.args.get('empresa', None)
-    nome  = request.args.get('nome', None)
-
-    if not id and not empresa and not nome:
-        response = models.cliente.query.all()
-    elif not empresa and not nome:
-        response = models.cliente.query.filter_by(id=id).first()
-    '''
+def listar_todos_clientes():
     result = models.Cliente.query.all()
     return ClienteSchema(many=True).jsonify(result), 200
 
