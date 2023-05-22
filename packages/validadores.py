@@ -1,8 +1,10 @@
 import re
 
 def validarCPF(cpf:str) -> bool:
-    if(cpf==None):
+    if cpf==None:
       return True
+    if cpf=='': 
+      return False
     
     cpf_standard = re.compile("[0-9]{3}[.][0-9]{3}[.][0-9]{3}[-][0-9]{2}$")
     legal_format = cpf_standard.match(cpf)
@@ -41,6 +43,8 @@ def validarCPF(cpf:str) -> bool:
 def validarCNPJ(cnpj:str) -> bool:
   if(cnpj==None):
     return True
+  if cnpj == '': 
+      return False
   
   cnpj_standard = re.compile("[0-9]{2}[.][0-9]{3}[.][0-9]{3}[/][0-9]{4}[-][0-9]{2}$")
   legal_format = cnpj_standard.match(cnpj)
@@ -80,7 +84,8 @@ def validarCNPJ(cnpj:str) -> bool:
 def validarEmail(email:str) -> bool:
   if(email==None):
     return True
-
+  if email == '': 
+      return False
   size = len(email)
   at, dot, dot_before_at ,dot_after_at = 0, 0, 0, 0
   for i in range(size):
@@ -108,7 +113,8 @@ def validarEmail(email:str) -> bool:
 def validarCelular(celular:str) -> bool:
   if(celular==None):
     return True
-  
+  if celular == '': 
+      return False
   celular = celular.replace('+', '')
   celular = celular.replace('(', '')
   celular = celular.replace(')', '')
@@ -144,7 +150,8 @@ def validarCelular(celular:str) -> bool:
 def validarTelefoneFixo(telefoneFixo: str) -> bool:
   if(telefoneFixo==None):
     return True
-  
+  if telefoneFixo == '': 
+      return False
   telefoneFixo = telefoneFixo.replace('+', '')
   telefoneFixo = telefoneFixo.replace('(', '')
   telefoneFixo = telefoneFixo.replace(')', '')
@@ -182,6 +189,10 @@ def validarCodigoBarras(codigoBarras: str) -> bool:
   return True 
 
 def validarData(data: str) -> bool:
+  if data == None: 
+      return True
+  if data == '': 
+      return False
   data_standard = re.compile("[0-9]{4}[/][0-9]{2}[/][0-9]{2}$")
   legal_format = data_standard.match(data)
   if(not legal_format):
@@ -189,8 +200,12 @@ def validarData(data: str) -> bool:
   #Falta limitar meses e dias
   
 def validarEstado(estado: str) -> bool:
+  if estado is None:
+    return False
   estados = {'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'}
   return estado.upper() in estados
 
 def validarNumero(numero: str) -> bool:
+  if numero is None:
+    return False
   return numero.isnumeric()
