@@ -5,7 +5,7 @@ from datetime import datetime
 from flask import Blueprint, jsonify, request
 from json import dumps as jsondump
 import json
-import Packages.validadores as validadores
+import packages.validadores as validadores
 import app.response as response
 import app.pipelineValidacoes as pipelineValidacoes
 
