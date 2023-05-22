@@ -9,7 +9,12 @@ class TestValidarCPF(unittest.TestCase):
     def test_cpf_valido(self):
         cpfValido = '123.456.789-09'
         resultado = validadores.validarCPF(cpfValido)
-        self.assertTrue(resultado) 
+        self.assertTrue(resultado)
+
+    def test_cpf_nulo(self):
+        cpfNulo = ""
+        resultado = validadores.validarCPF(cpfNulo)
+        self.assertFalse(resultado) 
 
     def test_cpf_indefinido(self):
         cpfIndefinido = None
@@ -43,13 +48,21 @@ class TestValidarCNPJ(unittest.TestCase):
     def test_cnpj_invalido(self):
         cnpj_invalido = '11.222.343/0001-81'
         self.assertFalse(validadores.validarCNPJ(cnpj_invalido))
+
+    def test_cnpj_nulo(self):
+        cnpj_nulo = ""
+        self.assertFalse(validadores.validarCNPJ(cnpj_nulo))
     
 
 
 class TestValidarCEP(unittest.TestCase):
     def test_cep_indefinido(self):
         cepIndefinido = None
-        self.assertTrue(validadores.validarCEP(cepIndefinido))  
+        self.assertTrue(validadores.validarCEP(cepIndefinido)) 
+
+    def test_cep_nulo(self):
+        cepNulo = ""
+        self.assertFalse(validadores.validarCEP(cepNulo))
     
     def test_cep_valido(self):
         cep_valido = '12.345-678'
@@ -70,7 +83,13 @@ class TestValidarTelefoneFixo(unittest.TestCase):
 
     def test_telefone_invalido(self):
         telefone_invalido = '(12) 3456-78901'
-        self.assertFalse(validadores.validarTelefoneFixo(telefone_invalido))  
+        self.assertFalse(validadores.validarTelefoneFixo(telefone_invalido))
+
+    def test_telefone_nulo(self):
+        telefone_nulo = ""
+        self.assertFalse(validadores.validarTelefoneFixo(telefone_nulo))    
+
+
 class TestValidarCelular(unittest.TestCase):
     def validar_celular_indefinido(self):
         celular_indefinido = None
@@ -91,6 +110,11 @@ class TestValidarCelular(unittest.TestCase):
     def test_celular_nove_digitos_invalido(self):
         celular_invalido = '(31) 912 34-567 89'
         self.assertFalse(validadores.validarCelular(celular_invalido)) 
+
+    def test_celular_nulo(self):
+        celular_nulo = ""
+        self.assertFalse(validadores.validarCelular(celular_nulo))     
+
 class TestValidarEmail(unittest.TestCase):
     def validar_Email_Indefinido(self):
         email_indefinido = None
@@ -118,7 +142,11 @@ class TestValidarEmail(unittest.TestCase):
 
     def test_email_invalido_sem_ponto(self):
         email_sem_ponto = 'abc@yzcom'
-        self.assertFalse(validadores.validarEmail(email_sem_ponto))        
+        self.assertFalse(validadores.validarEmail(email_sem_ponto))
+
+    def test_email_nulo(self):
+        email_nulo = ""
+        self.assertFalse(validadores.validarEmail(email_nulo))            
 
 class TestValidarEstado(unittest.TestCase):
     def test_estado_valido(self):
@@ -133,14 +161,22 @@ class TestValidarEstado(unittest.TestCase):
         estado_invalido = 'ZZ'
         self.assertFalse(validadores.validarEstado(estado_invalido))
 
+    def test_estado_nulo(self):
+        estado_nulo = ""
+        self.assertFalse(validadores.validarEstado(estado_nulo))    
+
 class TestValidarNumero(unittest.TestCase):
     def test_numero_valido(self):
         numero_valido = '208'
         self.assertTrue(validadores.validarNumero(numero_valido))  
 
+    def test_numero_nulo(self):
+        numero_nulo = ""
+        self.assertFalse(validadores.validarNumero(numero_nulo))
+
     def test_numero_indefinido(self):
-        numero_indefinido = ""
-        self.assertFalse(validadores.validarNumero(numero_indefinido)) 
+        numero_indefinido = None
+        self.assertFalse(validadores.validarNumero(numero_indefinido))  
 
     def test_numero_invalido(self):
         numero_invalido = 'abcde'
@@ -153,7 +189,11 @@ class Testdata(unittest.TestCase):
 
     def test_data_indefinida(self):
         dataIndefinida = None
-        self.assertFalse(validadores.validarData(dataIndefinida)) 
+        self.assertFalse(validadores.validarData(dataIndefinida))
+
+    def test_data_nula(self):
+        dataNula = ""
+        self.assertFalse(validadores.validarData(dataNula))     
 
 if __name__ == '__main__':
     unittest.main()
