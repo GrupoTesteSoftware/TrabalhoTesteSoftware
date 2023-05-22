@@ -188,3 +188,6 @@ def validarData(data: str) -> bool:
     return False
   #Falta limitar meses e dias
   
+def validarEstado(estado:str) -> bool:
+  estados = {'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'}
+  return estado.upper() in estados
