@@ -88,7 +88,14 @@ class TestValidarTelefoneFixo(unittest.TestCase):
     def test_telefone_nulo(self):
         telefone_nulo = ""
         self.assertFalse(validadores.validarTelefoneFixo(telefone_nulo))    
+    
+    def test_telefone_ddd_invalido(self):
+        ddd_invalido = '(36) 3456-7890'
+        self.assertFalse(validadores.validarTelefoneFixo(ddd_invalido))
 
+    def test_telefone_celular_valido(self):
+        celular_valido = '(31)8888-8888'
+        self.assertFalse(validadores.validarTelefoneFixo(celular_valido))
 
 class TestValidarCelular(unittest.TestCase):
     def test_validar_celular_indefinido(self):
