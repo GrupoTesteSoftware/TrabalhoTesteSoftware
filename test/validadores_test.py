@@ -2,7 +2,7 @@ import unittest
 import sys 
 import os
 sys.path.append(os.path.abspath('..'))
-import Packages.validadores as validadores
+import packages.validadores as validadores
 
 class TestValidarCPF(unittest.TestCase):
     
