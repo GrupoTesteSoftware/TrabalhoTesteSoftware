@@ -1,8 +1,10 @@
 import re
 
 def validarCPF(cpf:str) -> bool:
-    if(cpf==None):
+    if cpf==None:
       return True
+    if cpf=='': 
+      return False
     
     cpf_standard = re.compile("[0-9]{3}[.][0-9]{3}[.][0-9]{3}[-][0-9]{2}$")
     legal_format = cpf_standard.match(cpf)
@@ -41,6 +43,8 @@ def validarCPF(cpf:str) -> bool:
 def validarCNPJ(cnpj:str) -> bool:
   if(cnpj==None):
     return True
+  if cnpj == '': 
+      return False
   
   cnpj_standard = re.compile("[0-9]{2}[.][0-9]{3}[.][0-9]{3}[/][0-9]{4}[-][0-9]{2}$")
   legal_format = cnpj_standard.match(cnpj)
@@ -80,7 +84,8 @@ def validarCNPJ(cnpj:str) -> bool:
 def validarEmail(email:str) -> bool:
   if(email==None):
     return True
-
+  if email == '': 
+      return False
   size = len(email)
   at, dot, dot_before_at ,dot_after_at = 0, 0, 0, 0
   for i in range(size):
@@ -108,43 +113,22 @@ def validarEmail(email:str) -> bool:
 def validarCelular(celular:str) -> bool:
   if(celular==None):
     return True
-  
-  celular = celular.replace('+', '')
-  celular = celular.replace('(', '')
-  celular = celular.replace(')', '')
-  celular = celular.replace('-', '')
-  celular = celular.replace(' ', '')
-  celular = celular.removeprefix('0')
-
-  size = len(celular)
-  if(size==12 or size==13):
-    ddi = celular[:2] 
-    if(ddi!="55"):
+  if celular == '': 
       return False
-    celular = celular[2:]
-    size = len(celular)
-  
-  ddds = re.compile("(1[1-9]|2[12478]|3[1-578])|4[1-9]|5[13-5]|6[1-9]|7[13-579]|8[1-9]|9[1-9]")
-  valid_ddd = ddds.match(celular)
-  if(not valid_ddd):
-    return False
-  
-  if(size<10 or size>11):
-    return False
+  padrao = r'\(\d{2}\) (9\d{4}-\d{4}|\d{4}-\d{4})'  # padrão regex para '(XX) 9XXXX-XXXX' ou '(XX) XXXX-XXXX'
 
-  if(size==11 and celular[2]!='9'):
-    return False
+  if re.match(padrao, celular):
+      return True
+  else:
+      return False
 
-  valid_prefixes = ['6','7','8','9']
-  if(celular[-8] not in valid_prefixes):
-    return False
-  
-  return True
+
 
 def validarTelefoneFixo(telefoneFixo: str) -> bool:
   if(telefoneFixo==None):
     return True
-  
+  if telefoneFixo == '': 
+      return False
   telefoneFixo = telefoneFixo.replace('+', '')
   telefoneFixo = telefoneFixo.replace('(', '')
   telefoneFixo = telefoneFixo.replace(')', '')
@@ -182,6 +166,10 @@ def validarCodigoBarras(codigoBarras: str) -> bool:
   return True 
 
 def validarData(data: str) -> bool:
+  if data == None: 
+      return True
+  if data == '': 
+      return False
   data_standard = re.compile("[0-9]{4}[/][0-9]{2}[/][0-9]{2}$")
   legal_format = data_standard.match(data)
   if(not legal_format):
@@ -189,8 +177,12 @@ def validarData(data: str) -> bool:
   #Falta limitar meses e dias
   
 def validarEstado(estado: str) -> bool:
+  if estado is None:
+    return False
   estados = {'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'}
   return estado.upper() in estados
 
 def validarNumero(numero: str) -> bool:
+  if numero is None:
+    return False
   return numero.isnumeric()

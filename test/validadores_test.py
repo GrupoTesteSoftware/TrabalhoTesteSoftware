@@ -199,7 +199,7 @@ class Testdata(unittest.TestCase):
     @unittest.skip("Skipping this test")
     def test_data_indefinida(self):
         dataIndefinida = None
-        self.assertFalse(validadores.validarData(dataIndefinida))
+        self.assertTrue(validadores.validarData(dataIndefinida))
 
     def test_data_nula(self):
         dataNula = ""
