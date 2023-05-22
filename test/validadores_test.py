@@ -99,12 +99,12 @@ class TestValidarCelular(unittest.TestCase):
         celular_valido = '(31) 9123-4567'
         self.assertTrue(validadores.validarCelular(celular_valido))  
 
-    @unittest.skip("Skipping this test")
+    
     def test_celular_oito_digitos_invalido(self):
         celular_invalido = '(31) 9123-a567'
         self.assertFalse(validadores.validarCelular(celular_invalido))  
     
-    @unittest.skip("Skipping this test")
+    
     def test_celular_nove_digitos_valido(self):
         celular_valido = '(21) 91234-5678'
         self.assertTrue(validadores.validarCelular(celular_valido))  
@@ -146,7 +146,7 @@ class TestValidarEmail(unittest.TestCase):
         email_sem_ponto = 'abc@yzcom'
         self.assertFalse(validadores.validarEmail(email_sem_ponto))
 
-    @unittest.skip("Skipping this test")
+    
     def test_email_nulo(self):
         email_nulo = ""
         self.assertFalse(validadores.validarEmail(email_nulo))            
@@ -156,7 +156,7 @@ class TestValidarEstado(unittest.TestCase):
         estado_valido = 'MG'
         self.assertTrue(validadores.validarEstado(estado_valido))  
 
-    @unittest.skip("Skipping this test")
+    
     def test_estado_indefinido(self):
         estado_indefinido = None
         self.assertFalse(validadores.validarEstado(estado_indefinido)) 
@@ -178,7 +178,7 @@ class TestValidarNumero(unittest.TestCase):
         numero_nulo = ""
         self.assertFalse(validadores.validarNumero(numero_nulo))
 
-    @unittest.skip("Skipping this test")
+    
     def test_numero_indefinido(self):
         numero_indefinido = None
         self.assertFalse(validadores.validarNumero(numero_indefinido))  
@@ -196,7 +196,7 @@ class Testdata(unittest.TestCase):
         dataValida = '2023-08-01'
         self.assertTrue(validadores.validarData(dataValida))  
 
-    @unittest.skip("Skipping this test")
+    
     def test_data_indefinida(self):
         dataIndefinida = None
         self.assertTrue(validadores.validarData(dataIndefinida))
