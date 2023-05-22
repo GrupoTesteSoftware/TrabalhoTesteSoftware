@@ -32,8 +32,30 @@ class TestPipelineValidacoes(unittest.TestCase):
         mensagemIdefinida = None
         resultado,mensagem = pipelineValidacoes.Executar([(False,mensagemIdefinida)])
         self.assertFalse(resultado)   
-        self.assertEqual(mensagem,mensagemIdefinida) 
+        self.assertEqual(mensagem,mensagemIdefinida)
+    
+    def test_pipelinevalidacoesVazia(self):
+        resultado,mensagem = pipelineValidacoes.Executar([])
+        self.assertTrue(resultado)   
+        self.assertEqual(mensagem,"Sucess")
 
+    def test_pipelinevalidacoesNulla(self):
+        with self.assertRaises(TypeError):
+            pipelineValidacoes.Executar(None)
+         
+
+    def test_pipelinevalidacoes_ValidacaoNone(self):
+        resultado,mensagem = pipelineValidacoes.Executar([(None,"Mensagem Erro")])
+        self.assertFalse(resultado)   
+        self.assertEqual(mensagem,"Mensagem Erro")
+
+    def test_pipelinevalidacoes_ValidacaoOutrosValores(self):
+        with self.assertRaises(TypeError):
+            pipelineValidacoes.Executar(["outroValor"])
+
+    def test_pipelinevalidacoes_ValidacaoMuitosValores(self):
+        with self.assertRaises(TypeError):
+            pipelineValidacoes.Executar([( "teste", "teste")])
 
 if __name__ == '__main__':
     unittest.main()
