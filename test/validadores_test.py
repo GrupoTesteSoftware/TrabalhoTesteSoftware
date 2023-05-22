@@ -91,7 +91,7 @@ class TestValidarTelefoneFixo(unittest.TestCase):
 
 
 class TestValidarCelular(unittest.TestCase):
-    def validar_celular_indefinido(self):
+    def test_validar_celular_indefinido(self):
         celular_indefinido = None
         self.assertTrue(validadores.validarCelular(celular_indefinido))
 
@@ -118,7 +118,7 @@ class TestValidarCelular(unittest.TestCase):
         self.assertFalse(validadores.validarCelular(celular_nulo))     
 
 class TestValidarEmail(unittest.TestCase):
-    def validar_Email_Indefinido(self):
+    def test_validar_Email_Indefinido(self):
         email_indefinido = None
         self.assertTrue(validadores.validarEmail(email_indefinido))
     
@@ -192,7 +192,7 @@ class TestValidarNumero(unittest.TestCase):
         self.assertFalse(validadores.validarNumero(numero_invalido_misto))         
 
 class Testdata(unittest.TestCase):
-    def dataValida(self):
+    def test_dataValida(self):
         dataValida = '2023-08-01'
         self.assertTrue(validadores.validarData(dataValida))  
 
