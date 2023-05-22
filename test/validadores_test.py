@@ -102,7 +102,25 @@ class TestValidarEmail(unittest.TestCase):
 
     def test_email_invalido(self):
         email_invalido = 'exemploexample.com'
-        self.assertFalse(validadores.validarEmail(email_invalido))  
+        self.assertFalse(validadores.validarEmail(email_invalido))
+
+    def test_email_invalido_poucos_chars(self):
+        email_poucos_chars = 'a@bcd.com'
+        self.assertFalse(validadores.validarEmail(email_poucos_chars))
+
+    def test_email_invalido_multiplos_arrobas(self):
+        email_multiplos_arrobas = 'abc@def@xyz.com'
+        self.assertFalse(validadores.validarEmail(email_multiplos_arrobas))
+
+    def test_email_invalido_poucos_chars_apos_arroba(self):
+        email_poucos_chars_apos_arroba = 'abc@yz.com'
+        self.assertFalse(validadores.validarEmail(email_poucos_chars_apos_arroba))
+
+    def test_email_invalido_sem_ponto(self):
+        email_sem_ponto = 'abc@yzcom'
+        self.assertFalse(validadores.validarEmail(email_sem_ponto))        
+
+
 
 
 class Testdata(unittest.TestCase):
