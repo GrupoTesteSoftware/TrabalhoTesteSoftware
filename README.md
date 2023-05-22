@@ -1,3 +1,11 @@
+# Grupo:
+Arthur Veloso Kuahara
+Hilário Corrêa da Silva Neto
+Matheus Schimieguel Silva
+Renato Polanczyk Resende
+Victor Vieira Brito
+
+
 # BACKEND: API em Flask-SQLite 
 
 <br>
