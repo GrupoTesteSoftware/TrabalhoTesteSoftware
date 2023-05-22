@@ -120,8 +120,18 @@ class TestValidarEmail(unittest.TestCase):
         email_sem_ponto = 'abc@yzcom'
         self.assertFalse(validadores.validarEmail(email_sem_ponto))        
 
+class TestValidarEstado(unittest.TestCase):
+    def estadoValido(self):
+        estado_valido = 'MG'
+        self.assertTrue(validadores.validarEstado(estado_valido))  
 
+    def test_estado_indefinido(self):
+        estado_indefinido = None
+        self.assertFalse(validadores.validarEstado(estado_indefinido)) 
 
+    def test_estado_invalido(self):
+        estado_invalido = 'ZZ'
+        self.assertFalse(validadores.validarEstado(estado_invalido)) 
 
 class Testdata(unittest.TestCase):
     def dataValida(self):
