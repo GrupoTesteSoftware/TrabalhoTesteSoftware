@@ -115,37 +115,14 @@ def validarCelular(celular:str) -> bool:
     return True
   if celular == '': 
       return False
-  celular = celular.replace('+', '')
-  celular = celular.replace('(', '')
-  celular = celular.replace(')', '')
-  celular = celular.replace('-', '')
-  celular = celular.replace(' ', '')
-  celular = celular.removeprefix('0')
+  padrao = r'\(\d{2}\) (9\d{4}-\d{4}|\d{4}-\d{4})'  # padrão regex para '(XX) 9XXXX-XXXX' ou '(XX) XXXX-XXXX'
 
-  size = len(celular)
-  if(size==12 or size==13):
-    ddi = celular[:2] 
-    if(ddi!="55"):
+  if re.match(padrao, celular):
+      return True
+  else:
       return False
-    celular = celular[2:]
-    size = len(celular)
-  
-  ddds = re.compile("(1[1-9]|2[12478]|3[1-578])|4[1-9]|5[13-5]|6[1-9]|7[13-579]|8[1-9]|9[1-9]")
-  valid_ddd = ddds.match(celular)
-  if(not valid_ddd):
-    return False
-  
-  if(size<10 or size>11):
-    return False
 
-  if(size==11 and celular[2]!='9'):
-    return False
 
-  valid_prefixes = ['6','7','8','9']
-  if(celular[-8] not in valid_prefixes):
-    return False
-  
-  return True
 
 def validarTelefoneFixo(telefoneFixo: str) -> bool:
   if(telefoneFixo==None):
