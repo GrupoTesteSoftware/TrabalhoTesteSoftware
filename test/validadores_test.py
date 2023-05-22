@@ -180,7 +180,11 @@ class TestValidarNumero(unittest.TestCase):
 
     def test_numero_invalido(self):
         numero_invalido = 'abcde'
-        self.assertFalse(validadores.validarNumero(numero_invalido))         
+        self.assertFalse(validadores.validarNumero(numero_invalido)) 
+
+    def test_numero_invalido_misto(self):
+        numero_invalido_misto = '1ab2cd3e'
+        self.assertFalse(validadores.validarNumero(numero_invalido_misto))         
 
 class Testdata(unittest.TestCase):
     def dataValida(self):
