@@ -72,6 +72,7 @@ $ docker run -it -p 7776:7776 simple-flask-app
 
 --- 
 
+
 ## Fontes:
 * https://www.serverlessops.io/blog/hello-serverless-a-beginning-python-flask-application
 
