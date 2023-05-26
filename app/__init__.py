@@ -40,3 +40,5 @@ def create_app() -> Flask:
         app.register_blueprint(Produto)
         app.register_blueprint(enderecoscliente)
         return app
+    
+app = create_app()
