@@ -1,5 +1,6 @@
-FROM python:3.8
+FROM python:3.11
 WORKDIR /api
 COPY . . 
 RUN pip install -r requirements.txt
-CMD ["python3", "run.py"]
+RUN pip install gunicorn
+CMD ["gunicorn", "--bind=0.0.0.0:5000", "--timeout", "600", "startup:app"]
