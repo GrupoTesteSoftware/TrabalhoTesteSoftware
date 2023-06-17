@@ -9,9 +9,9 @@ class Cliente(db.Model):
     nome = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=True)
     telefone = db.Column(db.String, nullable=True)
-    tipo = db.Column(db.String, nullable=True)
+    whatsapp = db.Column(db.String, nullable=True)
     celular = db.Column(db.String, nullable=True)
-    data = db.Column(db.DateTime, nullable=True)
+    dataExlusao = db.Column(db.DateTime, nullable=True)
     dataNascimento = db.Column(db.DateTime, nullable=True)
 
     def __init__(
@@ -20,9 +20,9 @@ class Cliente(db.Model):
                 CPF_CNPJ=None,
                 email=None,
                 telefone=None,
-                tipo=None,
+                whatsapp=None,
                 celular=None,
-                data=None,
+                dataExlusao=None,
                 dataNascimento=None
             ):
         """Constructor to help write data"""
@@ -31,9 +31,9 @@ class Cliente(db.Model):
         self.CPF_CNPJ = CPF_CNPJ
         self.email = email
         self.telefone = telefone
-        self.tipo = tipo
+        self.whatsapp = whatsapp
         self.celular = celular
-        self.data = data
+        self.dataExlusao = dataExlusao
         self.dataNascimento = dataNascimento
 
     def __repr__(self) -> str:

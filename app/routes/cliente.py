@@ -2,36 +2,101 @@ from app import db
 from app import models
 from app.serializers import ClienteSchema
 from datetime import datetime
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request,abort
 from json import dumps as jsondump
 import json
 import packages.validadores as validadores
 import app.response as response
 import app.pipelineValidacoes as pipelineValidacoes
+from flask_restx import Api, Namespace, Resource, fields, marshal
+from datetime import datetime
+
 
 cliente = Blueprint('cliente', __name__)
 
-@cliente.route('/clientes/', methods=['GET'])
-def listar_todos_clientes():
+apiCliente =  Api(cliente)
+nsCliente = Namespace("cliente",  description="Operação Com Clientes")
+
+cliente_model = apiCliente.model('Cliente', {
+    'CPF_CNPJ': fields.String(required=False, description="identificador de Cliente PF ou PJ"),
+    'nome': fields.String(required=True, description="Nome cliente"),
+    'email': fields.String(required=False, description="endereco de email"),
+    'telefone': fields.String(required=False,description="telefone"),
+    'whatsapp': fields.String(required=False,description="whatsapp para contato"),
+    'celular': fields.String(required=False,description="User's name"),
+    'dataNascimento': fields.String(required=False,description="User's name"),
+})
+
+
+# ROTAS 
+@nsCliente.route("/listarTodos",methods=['GET'])
+class ClienteResource(Resource):
+    def get(self):
+        return listarTodosClientes()
+    
+@nsCliente.route('/listarPessoaJuridica',methods=['GET'])
+class ClienteResource(Resource):
+    def get(self):
+        return listarPessoaJuridica()
+
+@nsCliente.route('/cliente/listarPessoaFisica', methods=['GET'])
+class ClienteResource(Resource):
+    def get(self):
+        return listarPessoaFisica()
+    
+@nsCliente.route('/<id>/atualizar', methods=['PATCH'])
+class ClienteResource(Resource):
+    @apiCliente.expect(cliente_model, validate=True)
+    def patch(self,id):
+        return atualizarCadastroCliente(id)
+@nsCliente.route('/cadastrar', methods=['PUT'])
+class ClienteResource(Resource):
+    @apiCliente.expect(cliente_model, validate=True)
+    def put(self):
+        return cadastrarCliente()
+  
+@nsCliente.route('/<id>/deletar', methods=['DELETE'])
+class ClienteResource(Resource):
+    def delete(self,id):
+        return deletarCliente(id)  
+    
+# @cliente.route('/cliente/update_column/', methods=['POST'])
+# def update_cliente_column():
+#     """Update post cliente column"""
+#     id = request.form['id']
+#     key = request.form['key']
+#     value = request.form['value']
+
+#     cliente_obj = models.Cliente.query.filter_by(id=id).first()
+
+#     if key == "celular":
+#         value = int(value)
+
+#     setattr(cliente_obj, key, value)
+
+#     db.session.commit()
+#     return response.success()
+
+apiCliente.add_namespace(nsCliente)
+
+
+#Funcoes
+
+def listarTodosClientes():
     result = models.Cliente.query.all()
-    return ClienteSchema(many=True).jsonify(result), 200
+    return ClienteSchema(many=True).jsonify(result)
 
-@cliente.route('/cliente/empresa', methods=['GET'])
-def retrieve_empresa_clientes():
-    result = models.Cliente.query.filter_by(tipo='Empresa' ).all()
-    return ClienteSchema(many=True).jsonify(result), 200
+def listarPessoaJuridica():
+    result = models.Cliente.query.filter_by(whatsapp='Empresa' ).all()
+    return ClienteSchema(many=True).jsonify(result)
 
+def listarPessoaFisica():
+    result = models.Cliente.query.filter_by(whatsapp='Pessoa' ).all()
+    return ClienteSchema(many=True).jsonify(result)
 
-@cliente.route('/cliente/pessoaFisica', methods=['GET'])
-def retrieve_pessoa_clientes():
-    result = models.Cliente.query.filter_by(tipo='Pessoa' ).all()
-    return ClienteSchema(many=True).jsonify(result), 200
-
-
-@cliente.route('/cliente/<id>/atualizar', methods=['PATCH'])
-def atualizar_Cadastro_Cliente(id):
+def atualizarCadastroCliente(id):
     cpf_cnpj = None
-    data = None
+    dataExlusao = None
     dataNascimento = None
     celular = None
     nome = None
@@ -45,10 +110,8 @@ def atualizar_Cadastro_Cliente(id):
         email = response_data['email']
     if 'telefone' in response_data:
         telefone = response_data['telefone']
-    if 'tipo' in response_data:
-        tipo = response_data['tipo']
-    if 'data' in response_data:
-        data = response_data['data']
+    if 'whatsapp' in response_data:
+        whatsapp = response_data['whatsapp']
     if 'dataNascimento' in response_data:
         dataNascimento = response_data['dataNascimento']
     if 'celular' in response_data:
@@ -56,7 +119,7 @@ def atualizar_Cadastro_Cliente(id):
     
     resultado,mensagem = pipelineValidacoes.Executar(
         [
-            (validadores.validarCPF_CNPJ(cpf_cnpj,tipo), "CPF ou CNPJ invalido."),
+            (validadores.validarCPF_CNPJ(cpf_cnpj,whatsapp), "CPF ou CNPJ invalido."),
             (validadores.validarEmail(email), "Email Invalido"),
             (validadores.validarTelefoneFixo(telefone), "Telefone Fixo Invalido"),
             (validadores.validarData(dataNascimento), "Data de nascimento Invalida"),
@@ -74,8 +137,8 @@ def atualizar_Cadastro_Cliente(id):
     setattr(cliente_obj, 'nome', nome)
     setattr(cliente_obj, 'email', email)
     setattr(cliente_obj, 'telefone', telefone)
-    setattr(cliente_obj, 'tipo', tipo)
-    setattr(cliente_obj, 'data', data)
+    setattr(cliente_obj, 'whatsapp', whatsapp)
+    setattr(cliente_obj, 'data', dataExlusao)
     setattr(cliente_obj, 'dataNascimento', dataNascimento)
     setattr(cliente_obj, 'CPF_CNPJ', cpf_cnpj)
 
@@ -83,10 +146,8 @@ def atualizar_Cadastro_Cliente(id):
     
     return response.success()
 
-@cliente.route('/cliente/cadastrar', methods=['PUT'])
-def cadastrar_cliente():
+def cadastrarCliente():
     cpf_cnpj = None
-    data = None
     dataNascimento = None
     celular = None
 
@@ -101,18 +162,15 @@ def cadastrar_cliente():
     nome = response_data['nome']
     email = response_data['email']
     telefone = response_data['telefone']
-    tipo = response_data['tipo']
+    whatsapp = response_data['whatsapp']
     if 'celular' in response_data:
         celular = response_data['celular']
-    if "data" in response_data:
-        data = response_data['data']
-        
     if "dataNascimento" in response_data:
-        dataNascimento = js_to_py_datetime(response_data['dataNascimento'])
+        dataNascimento = response_data['dataNascimento']
  
     resultado,mensagem = pipelineValidacoes.Executar(
         [
-            (validadores.validarCPF_CNPJ(cpf_cnpj,tipo), "CPF ou CNPJ invalido."),
+            (validadores.validarCPF_CNPJ(cpf_cnpj), "CPF ou CNPJ invalido."),
             (validadores.validarEmail(email), "Email Invalido"),
             (validadores.validarTelefoneFixo(telefone), "Telefone Fixo Invalido"),
             (validadores.validarData(dataNascimento), "Data de nascimento Invalida"),
@@ -131,9 +189,8 @@ def cadastrar_cliente():
         nome = nome,
         email = email,
         telefone = telefone,
-        tipo = tipo,
+        whatsapp = whatsapp,
         celular = celular,
-        data = data,
         dataNascimento = dataNascimento
     )
 
@@ -143,21 +200,13 @@ def cadastrar_cliente():
     
     return response.success({"idCliente":cliente_obj.id})
 
-
-
-@cliente.route('/cliente/update_column/', methods=['POST'])
-def update_cliente_column():
-    """Update post cliente column"""
-    id = request.form['id']
-    key = request.form['key']
-    value = request.form['value']
-
+def deletarCliente(id):
     cliente_obj = models.Cliente.query.filter_by(id=id).first()
-
-    if key == "celular":
-        value = int(value)
-
-    setattr(cliente_obj, key, value)
-
+    if cliente_obj is None:
+        codigo, mensagem = response.bad_request("Cliente Nao Encontrado")
+        abort(codigo, mensagem)
+    dataExlusao =  datetime.now()
+    setattr(cliente_obj, 'dataExlusao', dataExlusao)
     db.session.commit()
-    return response.success()
+    return True
+    

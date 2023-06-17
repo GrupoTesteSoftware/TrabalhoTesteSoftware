@@ -15,7 +15,7 @@ def bad_request(mensagem: str):
         'success': False,
         'message': "Bad request: " + mensagem
     }
-    return jsonify(response), 400
+    return 400,response
 
 
 def unauthorized(mensagem : str):

@@ -1,6 +1,7 @@
 import re
 from datetime import datetime
 
+
 def validarCPF(cpf:str) -> bool:
     if cpf==None:
       return True
@@ -81,6 +82,9 @@ def validarCNPJ(cnpj:str) -> bool:
   cnpj += str(second_digit)
 
   return cnpj==init_cnpj
+
+def validarCPF_CNPJ(cpfCnpj:str) -> bool:
+  return validarCPF(cpfCnpj) or validarCNPJ(cpfCnpj)
 
 def validarEmail(email:str) -> bool:
   if(email==None):

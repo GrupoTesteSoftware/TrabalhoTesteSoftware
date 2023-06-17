@@ -8,15 +8,17 @@ class ClienteSchema(ma.SQLAlchemyAutoSchema):
         model = Cliente
         load_instance = True
 
-    CPF_CNPJ = fields.Str(required=False)
-    nome = fields.Str(required=True)
-    email = fields.Str(required=False)
-    telefone = fields.Str(required=False)
-    tipo = fields.Str(required=False)
-    celular = fields.Str(required=False)
-    data = fields.Str(required=False)
-    dataNascimento = fields.Str(required=False)
+    CPF_CNPJ = fields.String(required=False, description="identificador de Cliente PF ou PJ")
+    nome = fields.String(required=True, description="Nome cliente")
+    email = fields.String(required=False, description="endereco de email")
+    telefone = fields.String(required=False,description="telefone")
+    whatsapp = fields.String(required=False,description="User's name")
+    celular = fields.String(required=False,description="User's name")
+    dataExlusao = fields.String(required=False, description="User's name")
+    dataNascimento = fields.String(required=False,description="User's name")
 
     @validates('id')
     def validate_id(self, value):
         raise ValidationError('Never send the id')
+     
+ 
