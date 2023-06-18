@@ -139,7 +139,7 @@ def atualizarCadastroCliente(id):
     setattr(cliente_obj, 'telefone', telefone)
     setattr(cliente_obj, 'whatsapp', whatsapp)
     setattr(cliente_obj, 'data', dataExlusao)
-    setattr(cliente_obj, 'dataNascimento', dataNascimento)
+    setattr(cliente_obj, 'dataNascimento',  datetime.strptime(dataNascimento, "%Y-%m-%d"))
     setattr(cliente_obj, 'CPF_CNPJ', cpf_cnpj)
 
     db.session.commit()
@@ -150,6 +150,7 @@ def cadastrarCliente():
     cpf_cnpj = None
     dataNascimento = None
     celular = None
+    telefone = None
 
     response_data = json.loads(request.data.decode())
     if 'nome' not in response_data:
@@ -161,8 +162,12 @@ def cadastrarCliente():
        
     nome = response_data['nome']
     email = response_data['email']
-    telefone = response_data['telefone']
-    whatsapp = response_data['whatsapp']
+    if 'email' in response_data:
+        email = response_data['email']
+    if 'telefone' in response_data:
+        telefone = response_data['telefone']
+    if 'whatsapp' in response_data:
+        whatsapp = response_data['whatsapp']
     if 'celular' in response_data:
         celular = response_data['celular']
     if "dataNascimento" in response_data:
@@ -179,10 +184,12 @@ def cadastrarCliente():
     )
 
     if  models.Cliente.query.filter_by(CPF_CNPJ=cpf_cnpj).first():
-        return response.bad_request("Ja existe um usario com esse CPF/CNPJ")
+        codigo, mensagem = response.bad_request("Ja existe um usario com esse CPF/CNPJ")
+        abort(codigo, mensagem)
     
     if resultado is False: 
-        return response.bad_request(mensagem)
+        codigo, mensagem = response.bad_request(mensagem)
+        abort(codigo, mensagem)
 
     cliente_obj = models.Cliente(
         CPF_CNPJ = cpf_cnpj,
@@ -191,14 +198,14 @@ def cadastrarCliente():
         telefone = telefone,
         whatsapp = whatsapp,
         celular = celular,
-        dataNascimento = dataNascimento
+        dataNascimento =  datetime.strptime(dataNascimento, "%Y-%m-%d")
     )
 
     db.session.add(cliente_obj)
 
     db.session.commit()
     
-    return cliente_obj.id
+    return {'id':cliente_obj.id}
 
 def deletarCliente(id):
     cliente_obj = models.Cliente.query.filter_by(id=id).first()
