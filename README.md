@@ -37,9 +37,9 @@ $ docker run -it -p 7776:7776 simple-flask-app
 
 ---
 
-## Execução direta, com exemplo utilizando Ambiente Virtual:
+## Execução direta, com exemplo utilizando Ambiente Virtual(Linux):
 ### Dependência:
-* Pytho 3.8.2
+* Pytho 3.11
 * Venv (sudo apt install python3.8-venv)
 * pip (sudo apt install python3-pip)
 
@@ -52,6 +52,22 @@ $ docker run -it -p 7776:7776 simple-flask-app
 1. Ativando ambiente:  `source venv/bin/activate`
 2. Executando: `python3 run.py`
 3. Desativando ambiente: `deactivate`
+
+
+## Execução direta, com exemplo utilizando Ambiente Virtual(Windows):
+### Dependência:
+* instale o [Python 3.11 na loja da MicroSoft ](https://apps.microsoft.com/store/detail/python-311/9NRWMJP3717K)
+
+
+### Gerenciando ambiente(abra um ternminal powershell):
+1. Criando ambiente:    `python -m venv venv`
+2. Ativando ambiente:  `.\venv\Scripts\Activate.ps1`
+3. Instalando dependências: `pip install -r requirements.txt`
+
+### Executando:
+1. Ativando ambiente:  `.\venv\Scripts\Activate.ps1` (extensao do python do vscode automatiza a ativação do ambiente virtual)
+2. Executando: `python run.py`
+
 
 <br>
 
