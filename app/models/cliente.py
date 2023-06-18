@@ -11,7 +11,7 @@ class Cliente(db.Model):
     telefone = db.Column(db.String, nullable=True)
     whatsapp = db.Column(db.String, nullable=True)
     celular = db.Column(db.String, nullable=True)
-    dataExlusao = db.Column(db.DateTime, nullable=True)
+    dataExclusao = db.Column(db.DateTime, nullable=True)
     dataNascimento = db.Column(db.DateTime, nullable=True)
 
     def __init__(
@@ -22,7 +22,7 @@ class Cliente(db.Model):
                 telefone=None,
                 whatsapp=None,
                 celular=None,
-                dataExlusao=None,
+                dataExclusao=None,
                 dataNascimento=None
             ):
         """Constructor to help write data"""
@@ -33,7 +33,7 @@ class Cliente(db.Model):
         self.telefone = telefone
         self.whatsapp = whatsapp
         self.celular = celular
-        self.dataExlusao = dataExlusao
+        self.dataExclusao = dataExclusao
         self.dataNascimento = dataNascimento
 
     def __repr__(self) -> str:

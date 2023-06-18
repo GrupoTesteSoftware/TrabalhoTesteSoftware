@@ -8,6 +8,7 @@ import json
 import packages.validadores as validadores
 import app.response as response
 import app.pipelineValidacoes as pipelineValidacoes
+import app.bodyParameter  as bodyParameter
 from flask_restx import Api, Namespace, Resource, fields
 from datetime import datetime
 
@@ -19,7 +20,7 @@ nsCliente = Namespace("cliente",  description="Operação Com Clientes")
 
 cliente_model = nsCliente.model('Cliente', {
     'CPF_CNPJ': fields.String(required=False, description="identificador de Cliente PF ou PJ"),
-    'nome': fields.String(required=True, description="Nome cliente"),
+    'nome': fields.String(required=False, description="Nome cliente"),
     'email': fields.String(required=False, description="endereco de email"),
     'telefone': fields.String(required=False,description="telefone"),
     'whatsapp': fields.String(required=False,description="whatsapp para contato"),
@@ -83,98 +84,32 @@ class ClienteResource(Resource):
 #Funcoes
 
 def listarTodosClientes():
-    result = models.Cliente.query.all()
+    result = models.Cliente.query.filter_by(dataExclusao=None).all()
     return ClienteSchema(many=True).jsonify(result)
 
 def listarPessoaJuridica():
-    result = models.Cliente.query.filter_by(whatsapp='Empresa' ).all()
+    result = models.Cliente.query.filter_by(whatsapp='Empresa').all()
     return ClienteSchema(many=True).jsonify(result)
 
 def listarPessoaFisica():
-    result = models.Cliente.query.filter_by(whatsapp='Pessoa' ).all()
+    result = models.Cliente.query.filter_by(whatsapp='Pessoa').all()
     return ClienteSchema(many=True).jsonify(result)
 
 def atualizarCadastroCliente(id):
-    cpf_cnpj = None
-    dataExlusao = None
-    dataNascimento = None
-    celular = None
-    nome = None
-
     response_data = json.loads(request.data.decode())
-    if 'CPF_CNPJ' in response_data:
-        cpf_cnpj = response_data['CPF_CNPJ'] 
-    if  'nome' in response_data:    
-        nome = response_data['nome']
-    if 'email' in  response_data:
-        email = response_data['email']
-    if 'telefone' in response_data:
-        telefone = response_data['telefone']
-    if 'whatsapp' in response_data:
-        whatsapp = response_data['whatsapp']
-    if 'dataNascimento' in response_data:
-        dataNascimento = response_data['dataNascimento']
-    if 'celular' in response_data:
-        celular = response_data['celular']
+    
+    cpf_cnpj = bodyParameter.get(response_data,'cpf_cnpj')
+    nome = bodyParameter.get(response_data,'nome')
+    email = bodyParameter.get(response_data,'email')
+    telefone = bodyParameter.get(response_data,'telefone')
+    whatsapp = bodyParameter.get(response_data,'whatsapp')
+    celular = bodyParameter.get(response_data,'celular')
+    dataNascimento = bodyParameter.get(response_data,'dataNascimento')
+    
     
     resultado,mensagem = pipelineValidacoes.Executar(
         [
-            (validadores.validarCPF_CNPJ(cpf_cnpj,whatsapp), "CPF ou CNPJ invalido."),
-            (validadores.validarEmail(email), "Email Invalido"),
-            (validadores.validarTelefoneFixo(telefone), "Telefone Fixo Invalido"),
-            (validadores.validarData(dataNascimento), "Data de nascimento Invalida"),
-            (validadores.validarCelular(celular), "Celular Invalido")
-        ]
-    )
-    if resultado is False: 
-        return response.bad_request(mensagem)
-    
-    cliente_obj = models.Cliente.query.filter_by(id=id).first()
-    if cliente_obj is None:
-        return response.bad_request("Cliente Nao Encontrado")
-
-    
-    setattr(cliente_obj, 'nome', nome)
-    setattr(cliente_obj, 'email', email)
-    setattr(cliente_obj, 'telefone', telefone)
-    setattr(cliente_obj, 'whatsapp', whatsapp)
-    setattr(cliente_obj, 'data', dataExlusao)
-    setattr(cliente_obj, 'dataNascimento',  datetime.strptime(dataNascimento, "%Y-%m-%d"))
-    setattr(cliente_obj, 'CPF_CNPJ', cpf_cnpj)
-
-    db.session.commit()
-    
-    return response.success()
-
-def cadastrarCliente():
-    cpf_cnpj = None
-    dataNascimento = None
-    celular = None
-    telefone = None
-
-    response_data = json.loads(request.data.decode())
-    if 'nome' not in response_data:
-        return response.bad_request("Para cadastrar um cliente é preciso de um nome")
-
-    if 'CPF_CNPJ' in response_data:
-        cpf_cnpj = response_data['CPF_CNPJ']
-    
-       
-    nome = response_data['nome']
-    email = response_data['email']
-    if 'email' in response_data:
-        email = response_data['email']
-    if 'telefone' in response_data:
-        telefone = response_data['telefone']
-    if 'whatsapp' in response_data:
-        whatsapp = response_data['whatsapp']
-    if 'celular' in response_data:
-        celular = response_data['celular']
-    if "dataNascimento" in response_data:
-        dataNascimento = response_data['dataNascimento']
- 
-    resultado,mensagem = pipelineValidacoes.Executar(
-        [
+            
             (validadores.validarCPF_CNPJ(cpf_cnpj), "CPF ou CNPJ invalido."),
             (validadores.validarEmail(email), "Email Invalido"),
             (validadores.validarTelefoneFixo(telefone), "Telefone Fixo Invalido"),
@@ -182,10 +117,53 @@ def cadastrarCliente():
             (validadores.validarCelular(celular), "Celular Invalido")
         ]
     )
-
-    if  models.Cliente.query.filter_by(CPF_CNPJ=cpf_cnpj).first():
-        codigo, mensagem = response.bad_request("Ja existe um usario com esse CPF/CNPJ")
+    if resultado is False: 
+        codigo, mensagem =  response.bad_request(mensagem)
         abort(codigo, mensagem)
+        
+    cliente_obj = models.Cliente.query.filter_by(id=id).first()
+    if cliente_obj is None:
+        codigo, mensagem =  response.bad_request("Cliente Nao Encontrado")
+        abort(codigo, mensagem)
+
+    if(nome):
+        setattr(cliente_obj, 'nome', nome)
+    if(email):
+        setattr(cliente_obj, 'email', email)
+    if(telefone):
+        setattr(cliente_obj, 'telefone', telefone)
+    if(whatsapp):
+        setattr(cliente_obj, 'whatsapp', whatsapp)
+    if(dataNascimento):
+        setattr(cliente_obj, 'dataNascimento',  datetime.strptime(dataNascimento, "%Y-%m-%d"))
+    if(cpf_cnpj):
+        setattr(cliente_obj, 'CPF_CNPJ', cpf_cnpj)
+
+    db.session.commit()
+    
+    return True
+
+def cadastrarCliente():
+    response_data = json.loads(request.data.decode())
+    cpf_cnpj = bodyParameter.get(response_data,'cpf_cnpj')
+    nome = bodyParameter.get(response_data,'nome')
+    email = bodyParameter.get(response_data,'email')
+    telefone = bodyParameter.get(response_data,'telefone')
+    whatsapp = bodyParameter.get(response_data,'whatsapp')
+    celular = bodyParameter.get(response_data,'celular')
+    dataNascimento = bodyParameter.get(response_data,'dataNascimento')
+    
+    resultado,mensagem = pipelineValidacoes.Executar(
+        [
+            ('nome' in response_data,"Para cadastrar um cliente é preciso de um nome"),
+            (validadores.validarCPF_CNPJ(cpf_cnpj), "CPF ou CNPJ invalido."),
+            (validadores.validarEmail(email), "Email Invalido"),
+            (validadores.validarTelefoneFixo(telefone), "Telefone Fixo Invalido"),
+            (validadores.validarData(dataNascimento), "Data de nascimento Invalida"),
+            (validadores.validarCelular(celular), "Celular Invalido"),
+            ( models.Cliente.query.filter_by(CPF_CNPJ=cpf_cnpj).first() is None,"Ja existe um usario com esse CPF/CNPJ" )
+        ]
+    )
     
     if resultado is False: 
         codigo, mensagem = response.bad_request(mensagem)
@@ -212,8 +190,8 @@ def deletarCliente(id):
     if cliente_obj is None:
         codigo, mensagem = response.bad_request("Cliente Nao Encontrado")
         abort(codigo, mensagem)
-    dataExlusao =  datetime.now()
-    setattr(cliente_obj, 'dataExlusao', dataExlusao)
+    dataExclusao =  datetime.now()
+    setattr(cliente_obj, 'dataExclusao', dataExclusao)
     db.session.commit()
     return True
     
