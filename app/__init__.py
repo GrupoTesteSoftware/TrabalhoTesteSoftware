@@ -6,11 +6,10 @@ from app.data.database import verify_cliente_is_populated, populate_database
 from app import models
 from app.models.rdb import db
 from werkzeug.middleware.proxy_fix import ProxyFix
-from flask_restx import Api,Resource
+from flask_restx import Api,Namespace,Resource
 
 # Globally accessible libraries
 ma = Marshmallow()
-
 # Application Factory App
 def create_app() -> Flask:
     """Create an app by initializing components"""
@@ -41,19 +40,31 @@ def create_app() -> Flask:
 
         # Include our Routes in our context
         from app.routes import cliente, Produto, enderecoscliente
+        from app.routes import nsCliente, nsEnderecoCliente,nsProduto
 
+       
         # Register Blueprints
-        app.register_blueprint(cliente)
-        app.register_blueprint(Produto)
-        app.register_blueprint(enderecoscliente)
+        #app.register_blueprint(cliente)
+        #app.register_blueprint(Produto)
+        # app.register_blueprint(enderecoscliente)
         
-        # Create Swagger API documentation
-        api = Api(app, version='1.0', title='Your API', description='API documentation',doc="/swagger")
-        @api.route('/hello')
-        class HelloResource(Resource):
-            def get(self):
-                    """An example endpoint that returns a greeting."""
-                    return "Hello, World!Te"
+        
+        api = Api(app, version='1.0', title='Simple CRM', description='API documentation',doc="/swagger")
+        api.add_namespace(nsCliente)
+        api.add_namespace(nsEnderecoCliente)
+        api.add_namespace(nsProduto)
+        
+       
         return app
-    
+# def createApi(app):
+#     return Api(app, version='1.0', title='Simple CRM', description='API documentation',doc="/swagger")
+
 app = create_app()
+
+
+
+# @api.route('/hello')
+# class HelloResource(Resource):
+#     def get(self):
+#             """An example endpoint that returns a greeting."""
+#             return "Hello, World!Te"

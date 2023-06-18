@@ -8,16 +8,16 @@ import json
 import packages.validadores as validadores
 import app.response as response
 import app.pipelineValidacoes as pipelineValidacoes
-from flask_restx import Api, Namespace, Resource, fields, marshal
+from flask_restx import Api, Namespace, Resource, fields
 from datetime import datetime
 
 
 cliente = Blueprint('cliente', __name__)
 
-apiCliente =  Api(cliente)
+
 nsCliente = Namespace("cliente",  description="Operação Com Clientes")
 
-cliente_model = apiCliente.model('Cliente', {
+cliente_model = nsCliente.model('Cliente', {
     'CPF_CNPJ': fields.String(required=False, description="identificador de Cliente PF ou PJ"),
     'nome': fields.String(required=True, description="Nome cliente"),
     'email': fields.String(required=False, description="endereco de email"),
@@ -46,12 +46,12 @@ class ClienteResource(Resource):
     
 @nsCliente.route('/<id>/atualizar', methods=['PATCH'])
 class ClienteResource(Resource):
-    @apiCliente.expect(cliente_model, validate=True)
+    @nsCliente.expect(cliente_model, validate=True)
     def patch(self,id):
         return atualizarCadastroCliente(id)
 @nsCliente.route('/cadastrar', methods=['PUT'])
 class ClienteResource(Resource):
-    @apiCliente.expect(cliente_model, validate=True)
+    @nsCliente.expect(cliente_model, validate=True)
     def put(self):
         return cadastrarCliente()
   
@@ -77,7 +77,7 @@ class ClienteResource(Resource):
 #     db.session.commit()
 #     return response.success()
 
-apiCliente.add_namespace(nsCliente)
+
 
 
 #Funcoes
@@ -198,7 +198,7 @@ def cadastrarCliente():
 
     db.session.commit()
     
-    return response.success({"idCliente":cliente_obj.id})
+    return cliente_obj.id
 
 def deletarCliente(id):
     cliente_obj = models.Cliente.query.filter_by(id=id).first()
