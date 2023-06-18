@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 def validarCPF(cpf:str) -> bool:
-    if cpf==None:
+    if cpf is None:
       return True
     if cpf=='': 
       return False
@@ -43,7 +43,7 @@ def validarCPF(cpf:str) -> bool:
     return cpf==init_cpf
 
 def validarCNPJ(cnpj:str) -> bool:
-  if(cnpj==None):
+  if(cnpj is None):
     return True
   if cnpj == '': 
       return False
