@@ -154,7 +154,7 @@ def atualizarCadastroCliente(id):
         codigo, mensagem =  response.bad_request(mensagem)
         abort(codigo, mensagem)
         
-    cliente_obj = models.Cliente.query.filter_by(id=id).first()
+    cliente_obj = models.Cliente.query.filter_by(id=id).filter_by(dataExclusao=None).first()
     if cliente_obj is None:
         codigo, mensagem =  response.bad_request("Cliente Nao Encontrado")
         abort(codigo, mensagem)
