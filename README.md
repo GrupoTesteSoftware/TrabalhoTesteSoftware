@@ -14,8 +14,8 @@ Victor Vieira Brito
 
 <br>
 
-# Executando:
-Há duas formas de execução, uma utilizando container ou com execução direta com a chamada do python, a diferença são as dependências.
+## Acesse a versao Publicada da API:
+ [Documentação Swagger da Api Disponível Na Azure](https://simplecrm.azurewebsites.net/swagger)
 
 ## Container:
 ### Dependência:
@@ -69,6 +69,15 @@ $ docker run -it -p 7776:7776 simple-flask-app
 2. Executando: `python run.py`
 
 
+
+
+
+# A Documentacao API (Swagger)
+
+Acesse por http://127.0.0.1:5000/swagger
+
+
+![My Image](.docs/swagger.png)
 <br>
 
 --- 
@@ -84,6 +93,8 @@ $ docker run -it -p 7776:7776 simple-flask-app
 * O método que cria a instância da execução está em `app/__init__.py`, que irá carregar todos os _blueprints_ dentro da intância da aplicação.
 * Os blueprints, que se encontram em `app/routes/` são estruturas usadas pelo flask, se resumem a um conjunto de rotas da aplicação que são responsáveis pela parte da aplicação ou modelo dados.
 * Os blueprints fazem uso dos modelos de dados para acessar o banco de dados.
+
+
 
 
 --- 
