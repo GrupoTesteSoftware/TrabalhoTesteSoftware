@@ -66,3 +66,7 @@ jobs:
           app-name: 'simpleCrm'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_28A5B6C895D64C2D976AA87E980918B5 }}
+
+- name: Upload coverage reports to Codecov
+  uses: codecov/codecov-action@v3
+   env: CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
