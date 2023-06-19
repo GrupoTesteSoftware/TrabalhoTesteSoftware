@@ -9,13 +9,18 @@ Renato Polanczyk Resende
 
 Victor Vieira Brito
 
-
-# BACKEND: API em Flask-SQLite 
-
-<br>
-
 ## Acesse a versao Publicada da API:
  [Documentação Swagger da Api Disponível Na Azure](https://simplecrm.azurewebsites.net/swagger)
+
+
+## Acesse a Detalhes da Cobertura de Teste:
+Disponivel em [codecov.io](https://app.codecov.io/github/mschimieguel/TrabalhoTesteSoftware)
+
+
+# API em Flask-SQLite Com Documentação Swagger
+
+
+
 
 ## Container:
 ### Dependência:
